@@ -61,23 +61,53 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AcidDrip.cs" />
-    <Compile Include="Assets\Scripts\AcidSpawn.cs" />
-    <Compile Include="Assets\Scripts\Bullet.cs" />
+    <Compile Include="Assets\CheckLocation.cs" />
+    <Compile Include="Assets\RandomizeGroundTile.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\Health.cs" />
-    <Compile Include="Assets\Scripts\HUD.cs" />
+    <Compile Include="Assets\Scripts\CharacterController.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\Events\BaseGameEvent.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\Events\CharacterStatsEvent.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\Events\FloatEvent.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\Events\VoidEvent.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\Listeners\BaseGameEventListener.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\Listeners\CharacterStatsListener.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\Listeners\FloatListener.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\Listeners\IGameEventListener.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\Listeners\VoidListener.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\UnityEvents\UnityCharacterStatsEvent.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\UnityEvents\UnityFloatEvent.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\UnityEvents\UnityVoidEvent.cs" />
+    <Compile Include="Assets\Scripts\GameEvents\Void.cs" />
+    <Compile Include="Assets\Scripts\ICharacterInput.cs" />
+    <Compile Include="Assets\Scripts\InputMethods\AIInput.cs" />
+    <Compile Include="Assets\Scripts\InputMethods\MouseAndKeyboardInput.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\PlayerGrapple.cs" />
-    <Compile Include="Assets\Scripts\PlayerManager.cs" />
-    <Compile Include="Assets\Scripts\PlayerShoot.cs" />
-    <Compile Include="Assets\Scripts\Rocket.cs" />
+    <Compile Include="Assets\Scripts\Player\JetPack.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\PopupText.cs" />
     <Compile Include="Assets\Scripts\Room.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\SpanwRoom.cs" />
     <Compile Include="Assets\Scripts\SpawnObjects.cs" />
     <Compile Include="Assets\Scripts\SpawnPlayer.cs" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>E:/dev/Unity/Hellripper/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

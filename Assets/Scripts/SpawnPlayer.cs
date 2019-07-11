@@ -7,8 +7,8 @@ public class SpawnPlayer : MonoBehaviour {
     public Transform spawnPlayerPoint;
     public GameObject player;
 
-	public GameObject Spawn()
+	public void Spawn()
     {
-        return Instantiate(player, spawnPlayerPoint.position, Quaternion.identity);
+        player = Instantiate(Resources.Load("Prefab/Player") as GameObject, spawnPlayerPoint.position, Quaternion.identity);
     }
 }

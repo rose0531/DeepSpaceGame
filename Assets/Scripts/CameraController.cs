@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour {
 
     private void LateUpdate()
     {
-        if(transform.position != target.position)
+        if(target != null && transform.position != target.position)
         {
             Vector3 desiredPosition = target.position + offset;
             desiredPosition.x = Mathf.Clamp(desiredPosition.x, minPosition.x, maxPosition.x);

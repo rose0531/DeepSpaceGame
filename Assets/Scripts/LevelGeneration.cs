@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelGeneration : MonoBehaviour {
-    public GameObject cameraHolder;
+    public GameObject cameraHolder;                 // GameObject that holds the camera
 
-    public Transform[] startingPosition;
-    public GameObject[] allRooms;
-    public GameObject[] leftRooms;
-    public GameObject[] rightRooms;
-    public GameObject[] topRooms;
-    public GameObject[] bottomRooms;
-    private GameObject lastRoom;
+    public Transform[] startingPosition;            // Array of starting positions where the player can spawn.
+    public GameObject[] allRooms;                   // Array of all the room tiles
+    public GameObject[] leftRooms;                  // Array of all the room tiles with left opennings
+    public GameObject[] rightRooms;                 // Array of all the room tiles with right opennings
+    public GameObject[] topRooms;                   // Array of all the room tiles with top opennings
+    public GameObject[] bottomRooms;                // Array of all the room tiles with bottom opennings
+    private GameObject lastRoom;                    // Variable that holds the last room tile placed
 
     private int direction;
     public float moveAmount;
 
     private float timeBtwRoom;
-    public float startTimeBtwRoom = 0.25f;
+    public float startTimeBtwRoom;
 
     public float minX, maxX, minY;
     public bool stopGeneration;
@@ -41,10 +41,10 @@ public class LevelGeneration : MonoBehaviour {
         GameObject room = Instantiate(leftRooms[0], transform.position, Quaternion.identity);
 
         /* Spawn player in starting room */
-        PlayerManager.instance.player = room.GetComponent<SpawnPlayer>().Spawn();
+        room.GetComponent<SpawnPlayer>().Spawn(); //TODO: Find better way to spawn player.
 
         /* Set camera to focus on spawned player */
-        cameraHolder.GetComponent<CameraController>().target = PlayerManager.instance.player.transform;
+        cameraHolder.GetComponent<CameraController>().target = room.GetComponent<SpawnPlayer>().player.transform;
 
         /* Pick random direction to spawn next room */
         direction = Random.Range(1, 6);

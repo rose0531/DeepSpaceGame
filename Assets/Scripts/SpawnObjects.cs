@@ -1,40 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpawnObjects : MonoBehaviour {
 
     public GameObject[] objects;
-    public GameObject[] cosmetics;
     private GameObject instance;
 
 	// Use this for initialization
 	private void Start () {
-        int randObj = Random.Range(0, objects.Length);
-        instance = (GameObject)Instantiate(objects[randObj], transform.position, Quaternion.identity);
+        int randObj = UnityEngine.Random.Range(0, objects.Length);  // Must specify which Random class we are using, which is the UnityEngine.Random not the System.Random
+        instance = Instantiate(objects[randObj], transform.position, Quaternion.identity);
         instance.transform.parent = transform;
-
-        //TODO: instantiate cosmetics
-        /*
-        if(cosmetics.Length > 0)
-        {
-            int randCos = 0;
-            if(objects[randObj].tag == "Ground")
-            {
-                randCos = Random.Range(0, cosmetics.Length);
-                instance = (GameObject)Instantiate(cosmetics[randCos], new Vector2(transform.position.x, transform.position.y + 1), Quaternion.identity);
-                instance.transform.parent = transform;
-            }
-            
-            if(objects[randObj].tag == "Nothing")
-            {
-                randCos = Random.Range(0, cosmetics.Length);
-                instance = (GameObject)Instantiate(cosmetics[randCos], transform.position, Quaternion.identity);
-                instance.transform.parent = transform;
-            }
-        }
-        */
-	}
+        //if (instance.CompareTag("Enemy"))
+        //{
+            //GameController.instance.AddEnemeyToLevel(instance.GetComponent<EnemyController>());
+        //}
+    }
 
     private void OnDrawGizmos()
     {
