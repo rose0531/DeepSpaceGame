@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Room : MonoBehaviour {
 
@@ -9,6 +10,9 @@ public class Room : MonoBehaviour {
 
     public void RoomDestruction()
     {
+        // Notify child objects that the room is being destroyed.
+
+        // Destroy the room.
         Destroy(gameObject);
     }
 }

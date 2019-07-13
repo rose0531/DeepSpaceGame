@@ -10,6 +10,8 @@ TagManager:
   - Nothing
   - AcidCeiling
   - AcidGround
+  - Destructable
+  - Projectile
   layers:
   - Default
   - TransparentFX
