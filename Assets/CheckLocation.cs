@@ -6,6 +6,6 @@ public class CheckLocation : MonoBehaviour {
 
     private void Awake()
     {
-        if()
+        //if()
     }
 }
