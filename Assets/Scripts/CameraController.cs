@@ -15,8 +15,8 @@ public class CameraController : MonoBehaviour {
         if(target != null && transform.position != target.position)
         {
             Vector3 desiredPosition = target.position + offset;
-            desiredPosition.x = Mathf.Clamp(desiredPosition.x, minPosition.x, maxPosition.x);
-            desiredPosition.y = Mathf.Clamp(desiredPosition.y, minPosition.y, maxPosition.y);
+            //desiredPosition.x = Mathf.Clamp(desiredPosition.x, minPosition.x, maxPosition.x);
+            //desiredPosition.y = Mathf.Clamp(desiredPosition.y, minPosition.y, maxPosition.y);
             transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         }
     }

@@ -22,15 +22,20 @@ public abstract class CharacterController : MonoBehaviour {
         input.ReadInput();
     }
 
-    protected virtual void FixedUpdate()
+    //protected virtual void FixedUpdate()
+    public virtual void UpdateCharacterPhysics()
     {
         // Update player horizontal movement.
         UpdateHorizontalMovement(input.Horizontal);
 
         // Update player vertical movement if player jumped.
         characterStats.IsGrounded = Physics2D.OverlapCircle(characterFeet.position, checkGroundRadius, whatIsGround);
+
         if (input.Jump && characterStats.IsGrounded)
+        {
             ApplyJumpForce();
+            Debug.Log("Apply Jump Force");
+        }
         
         // Update player transform to face which ever direction the player is walking.
         if (input.Horizontal < 0 && characterStats.IsFacingRight)

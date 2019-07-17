@@ -15,6 +15,8 @@ public class MouseAndKeyboardInput : ICharacterInput {
         Horizontal = Input.GetAxisRaw("Horizontal");
         Attack = Input.GetButtonDown("Fire1");
         Jump = Input.GetKeyDown(KeyCode.Space);
+        if (Jump) Debug.Log("Jump triggered");
         HeldJump = Input.GetKey(KeyCode.Space);
+        if (HeldJump) Debug.Log("HeldJump triggered");
     }
 }

@@ -10,10 +10,6 @@ public class SpawnObjects : MonoBehaviour {
         int randObj = UnityEngine.Random.Range(0, objects.Length);  // Must specify which Random class we are using, which is the UnityEngine.Random not the System.Random
         instance = Instantiate(objects[randObj], transform.position, Quaternion.identity);
         instance.transform.parent = transform;
-        //if (instance.CompareTag("Enemy"))
-        //{
-            //GameController.instance.AddEnemeyToLevel(instance.GetComponent<EnemyController>());
-        //}
     }
 
     private void OnDrawGizmos()

@@ -41,10 +41,10 @@ public class LevelGeneration : MonoBehaviour {
         GameObject room = Instantiate(leftRooms[0], transform.position, Quaternion.identity);
 
         /* Spawn player in starting room */
-        room.GetComponent<SpawnPlayer>().Spawn(); //TODO: Find better way to spawn player.
+        //room.GetComponent<SpawnPlayer>().Spawn(); //TODO: Find better way to spawn player.
 
         /* Set camera to focus on spawned player */
-        cameraHolder.GetComponent<CameraController>().target = room.GetComponent<SpawnPlayer>().player.transform;
+        //cameraHolder.GetComponent<CameraController>().target = room.GetComponent<SpawnPlayer>().player.transform;
 
         /* Pick random direction to spawn next room */
         direction = Random.Range(1, 6);
@@ -63,9 +63,7 @@ public class LevelGeneration : MonoBehaviour {
         else if (stopGeneration && !goalLightsOn)
         {
             /* Spawn goal glow effect */
-            GameObject lights = Instantiate(goalLights, lastRoom.GetComponent<Room>().goal.transform.position, Quaternion.identity);
-            lights.transform.parent = lastRoom.GetComponent<Room>().goal.transform;
-            goalLightsOn = true;
+            
         }
         else
         {

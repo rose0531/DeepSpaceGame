@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class SpawnPlayer : MonoBehaviour {
 
-    public Transform spawnPlayerPoint;
-    public GameObject player;
-
-	public void Spawn()
+    private void Start()
     {
-        player = Instantiate(Resources.Load("Prefab/Player") as GameObject, spawnPlayerPoint.position, Quaternion.identity);
+        GameObject player = Instantiate(Resources.Load("Prefab/Player") as GameObject, transform.position, Quaternion.identity);
+        GameObject.FindGameObjectWithTag("CameraController").GetComponent<CameraController>().target = player.transform;
     }
 }

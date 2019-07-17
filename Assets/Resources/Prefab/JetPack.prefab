@@ -54,8 +54,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4884755292895912}
   - component: {fileID: 114611155679076582}
-  - component: {fileID: 114564332107336734}
-  - component: {fileID: 114792216340202420}
   m_Layer: 0
   m_Name: JetPack
   m_TagString: Untagged
@@ -111,35 +109,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114564332107336734
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1328723896576636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc920e8282488204483d74950fe1d379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 5430ccb9697a36943b0848a81d98bf69, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114834406207389262, guid: 3132166099540f74ea6a1d782092b82b,
-          type: 2}
-        m_MethodName: HandlePlayerFlipped
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityVoidEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!114 &114609756751075366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -185,7 +154,7 @@ MonoBehaviour:
   fuelBar: {fileID: 114609756751075366}
   fuelFumesEffect: {fileID: 1686474104045548, guid: 0baba3d14ab19f5479916bc9e7a4c428,
     type: 2}
-  characterStats: {fileID: 11400000, guid: 215b7fa22732f8f4a8c31531258467b0, type: 2}
+  player: {fileID: 114713304112641106, guid: 2623088ba9250e646866964fb8f24eed, type: 2}
 --- !u!114 &114661532012918586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -213,34 +182,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114792216340202420
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1328723896576636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc920e8282488204483d74950fe1d379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 62fd1955c6084dc4e8917fe7d06dbfaf, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114611155679076582}
-        m_MethodName: HandlePlayerJumped
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityVoidEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!114 &114805881944696950
 MonoBehaviour:
   m_ObjectHideFlags: 1

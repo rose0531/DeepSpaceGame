@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300032, guid: 1874161fe1dfd6d4f8e052b92720e797, type: 3}
-  - {fileID: 21300034, guid: 1874161fe1dfd6d4f8e052b92720e797, type: 3}
+  - {fileID: 21300032, guid: 64d75512a935e384380c972b4e401f32, type: 3}
+  - {fileID: 21300034, guid: 64d75512a935e384380c972b4e401f32, type: 3}
 --- !u!212 &212232591270547818
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -145,6 +145,6 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

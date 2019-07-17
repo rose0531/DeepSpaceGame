@@ -6,7 +6,6 @@ using System;
 public class Room : MonoBehaviour {
 
     public int type;
-    public GameObject goal;
 
     public void RoomDestruction()
     {

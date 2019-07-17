@@ -61,8 +61,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CheckLocation.cs" />
-    <Compile Include="Assets\RandomizeGroundTile.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CharacterController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyController.cs" />
@@ -82,15 +80,19 @@
     <Compile Include="Assets\Scripts\ICharacterInput.cs" />
     <Compile Include="Assets\Scripts\InputMethods\AIInput.cs" />
     <Compile Include="Assets\Scripts\InputMethods\MouseAndKeyboardInput.cs" />
-    <Compile Include="Assets\Scripts\LevelGeneration.cs" />
     <Compile Include="Assets\Scripts\Player\JetPack.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PopupText.cs" />
-    <Compile Include="Assets\Scripts\Room.cs" />
+    <Compile Include="Assets\Scripts\RandomizeGroundTile.cs" />
+    <Compile Include="Assets\Scripts\RoomDestroyer.cs" />
+    <Compile Include="Assets\Scripts\RoomLists.cs" />
+    <Compile Include="Assets\Scripts\RoomSpawner.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\CharacterStats.cs" />
-    <Compile Include="Assets\Scripts\SpanwRoom.cs" />
     <Compile Include="Assets\Scripts\SpawnObjects.cs" />
     <Compile Include="Assets\Scripts\SpawnPlayer.cs" />
+    <Compile Include="Assets\UnusedAssets\LevelGeneration.cs" />
+    <Compile Include="Assets\UnusedAssets\Room.cs" />
+    <Compile Include="Assets\UnusedAssets\SpanwRoom.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />

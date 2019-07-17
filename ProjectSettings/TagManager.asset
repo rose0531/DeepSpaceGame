@@ -12,6 +12,9 @@ TagManager:
   - AcidGround
   - Destructable
   - Projectile
+  - SpawnPoint
+  - Rooms
+  - CameraController
   layers:
   - Default
   - TransparentFX

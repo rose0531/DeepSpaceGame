@@ -13,9 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 100
   MaxAscendVelocity: 5
-  MaxDecendVelocity: 10
+  MaxDecendVelocity: 20
   MoveSpeed: 5
   JumpForce: 10
-  IsFacingRight: 1
-  IsGrounded: 0
-  Velocity: {x: 0, y: 5}
+  IsFacingRight: 0
+  IsGrounded: 1
+  IsDead: 0

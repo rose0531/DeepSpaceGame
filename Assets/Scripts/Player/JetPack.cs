@@ -23,7 +23,7 @@ public class JetPack : MonoBehaviour {
     public GameObject fuelFumesEffect;          // Reference to the fuel fumes effect when the player is activating the jet pack.
 
 
-    public CharacterController character;
+    public PlayerController player;
 
 
     private void Awake()
@@ -36,13 +36,14 @@ public class JetPack : MonoBehaviour {
         fuelFumesEffect.SetActive(false);
     }
 
-    private void Update()
-    {
-        activateJetPack = character.input.HeldJump && !character.characterStats.IsGrounded;
-    }
-
     private void FixedUpdate()
     {
+        //TODO: Jump/HeldJump are triggered but activateJetPack/jump don't apply force sometimes?
+        // Activate jetpack if user is holding jump and the player is not grounded
+        activateJetPack = player.input.HeldJump && !player.characterStats.IsGrounded;
+
+        if (activateJetPack) Debug.Log("Jetpack activated");
+
         if (activateJetPack && fuelAmountCounter > 0)
         {            
             // Decrement fuleAmountCounter by fuelCost.
@@ -55,16 +56,17 @@ public class JetPack : MonoBehaviour {
             fuelFumesEffect.SetActive(true);
 
             // Add ascending force.
-            if (character.Rb.velocity.y < 0)
+            if (player.Rb.velocity.y < 0)
             {
                 // Apply the jetpack force to the character
-                float yVelocity = character.Rb.velocity.y;
-                character.ApplyForce(0, -1 * yVelocity + jetPackForce + 5f);
+                //float yVelocity = character.Rb.velocity.y;
+                player.Rb.AddForce(new Vector2 (0, -1 * player.Rb.velocity.y + jetPackForce + 5f));
+                //character.ApplyForce(0, -1 * yVelocity + jetPackForce + 5f);
             }
             // Add descending force.
             else
             {
-                character.ApplyForce(0, jetPackForce);
+                player.ApplyForce(0, jetPackForce);
             }
         }
         else
@@ -73,7 +75,7 @@ public class JetPack : MonoBehaviour {
             fuelFumesEffect.SetActive(false);
         }
 
-        if (character.characterStats.IsGrounded)
+        if (player.characterStats.IsGrounded)
         {
             StartCoroutine(Refuel());
         }

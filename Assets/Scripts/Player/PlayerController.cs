@@ -17,6 +17,11 @@ public class PlayerController : CharacterController {
 
     private void Update()
     {
-        base.UpdateCharacter();
+        UpdateCharacter();
+    }
+
+    private void FixedUpdate()
+    {
+        UpdateCharacterPhysics();
     }
 }
