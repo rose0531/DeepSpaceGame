@@ -17,31 +17,34 @@ public abstract class CharacterController : MonoBehaviour {
         Rb = GetComponent<Rigidbody2D>();
     }
 
-    public virtual void UpdateCharacter()
+    public virtual void Update()
     {
         input.ReadInput();
+
+        // Update player transform to face which ever direction the player is walking.
+        if (input.Horizontal < 0 && characterStats.IsFacingRight)
+            Flip();
+        if (input.Horizontal > 0 && !characterStats.IsFacingRight)
+            Flip();
     }
 
     //protected virtual void FixedUpdate()
-    public virtual void UpdateCharacterPhysics()
+    public virtual void FixedUpdate()
     {
         // Update player horizontal movement.
         UpdateHorizontalMovement(input.Horizontal);
 
         // Update player vertical movement if player jumped.
         characterStats.IsGrounded = Physics2D.OverlapCircle(characterFeet.position, checkGroundRadius, whatIsGround);
+        if (!characterStats.IsGrounded)
+            Debug.Log("IsGrounded: " + characterStats.IsGrounded);
 
+        // If character jumped and they are grounded, then apply the jump force.
         if (input.Jump && characterStats.IsGrounded)
         {
             ApplyJumpForce();
             Debug.Log("Apply Jump Force");
         }
-        
-        // Update player transform to face which ever direction the player is walking.
-        if (input.Horizontal < 0 && characterStats.IsFacingRight)
-            Flip();
-        if (input.Horizontal > 0 && !characterStats.IsFacingRight)
-            Flip();
 
         // Restrict player ascend and descend velocity.
         if (Rb.velocity.y > characterStats.MaxAscendVelocity)
@@ -87,5 +90,14 @@ public abstract class CharacterController : MonoBehaviour {
 
         // Rotate y axis by 180 to flip the player transform.
         transform.Rotate(0f, 180f, 0f);
+    }
+
+    private Vector2 PixelPerfectClamp(Vector2 moveVector, float pixelsPerUnit)
+    {
+        Vector2 vectorInPixels = new Vector2(
+            Mathf.RoundToInt(moveVector.x * pixelsPerUnit),
+            Mathf.RoundToInt(moveVector.y * pixelsPerUnit));
+
+        return vectorInPixels / pixelsPerUnit;
     }
 }

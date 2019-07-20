@@ -14,14 +14,4 @@ public class PlayerController : CharacterController {
         base.Awake();
         input = new MouseAndKeyboardInput();        // Use mouse and keyboard input type for Player movement.
     }
-
-    private void Update()
-    {
-        UpdateCharacter();
-    }
-
-    private void FixedUpdate()
-    {
-        UpdateCharacterPhysics();
-    }
 }

@@ -27,14 +27,4 @@ public class EnemyController : CharacterController{
             TakeDamage(5);
         }
     }
-
-    private void Update()
-    {
-        base.UpdateCharacter();
-    }
-
-    private void FixedUpdate()
-    {
-        base.UpdateCharacterPhysics();
-    }
 }

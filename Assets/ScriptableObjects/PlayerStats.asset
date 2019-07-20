@@ -15,6 +15,7 @@ MonoBehaviour:
   MaxAscendVelocity: 5
   MaxDecendVelocity: 20
   MoveSpeed: 5
+  SpeedSmoothTime: 0.1
   JumpForce: 10
   IsFacingRight: 0
   IsGrounded: 1

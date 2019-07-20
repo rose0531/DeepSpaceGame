@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+[RequireComponent(typeof(PlayerController))]
 public class JetPack : MonoBehaviour {
     [SerializeField]
     private float jetPackForce;                  // The force applied to the jet pack.
@@ -36,14 +36,27 @@ public class JetPack : MonoBehaviour {
         fuelFumesEffect.SetActive(false);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        //TODO: Jump/HeldJump are triggered but activateJetPack/jump don't apply force sometimes?
-        // Activate jetpack if user is holding jump and the player is not grounded
+        /*PROBLEM: Jump/HeldJump are triggered but activateJetPack/jump don't apply their force's sometimes?
+          SOLUTION: This issue was caused by BoxCollider2D. Not sure why this component has problems.
+                    Switched BoxCollider2D on the Tile object with four EdgeCollider2D components.
+          */
+         
+        // Activate jetpack if user is holding jump and the player is not grounded.
         activateJetPack = player.input.HeldJump && !player.characterStats.IsGrounded;
 
         if (activateJetPack) Debug.Log("Jetpack activated");
 
+        // If player is grounded then refuel his jetpack if needed.
+        if (player.characterStats.IsGrounded)
+        {
+            StartCoroutine(Refuel());
+        }
+    }
+
+    private void FixedUpdate()
+    {
         if (activateJetPack && fuelAmountCounter > 0)
         {            
             // Decrement fuleAmountCounter by fuelCost.
@@ -52,6 +65,7 @@ public class JetPack : MonoBehaviour {
             // Update fuelBar to refelect current fuel amount.
             fuelBar.fillAmount = fuelAmountCounter / fuelAmount;
 
+            //TODO: Maybe make this a SO Event?
             // Turn on fuel fumes effect.
             fuelFumesEffect.SetActive(true);
 
@@ -59,9 +73,7 @@ public class JetPack : MonoBehaviour {
             if (player.Rb.velocity.y < 0)
             {
                 // Apply the jetpack force to the character
-                //float yVelocity = character.Rb.velocity.y;
-                player.Rb.AddForce(new Vector2 (0, -1 * player.Rb.velocity.y + jetPackForce + 5f));
-                //character.ApplyForce(0, -1 * yVelocity + jetPackForce + 5f);
+                player.ApplyForce(0, -1 * player.Rb.velocity.y + jetPackForce + 5f);
             }
             // Add descending force.
             else
@@ -71,14 +83,10 @@ public class JetPack : MonoBehaviour {
         }
         else
         {
+            //TODO: Maybe make this a SO Event?
             // Turn off fuel fumes effect.
             fuelFumesEffect.SetActive(false);
-        }
-
-        if (player.characterStats.IsGrounded)
-        {
-            StartCoroutine(Refuel());
-        }
+        } 
     }
 
     private IEnumerator Refuel()
