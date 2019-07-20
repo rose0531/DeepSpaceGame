@@ -1,53 +1,50 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpawnObjects : MonoBehaviour {
 
-    public GameObject[] objects;
-    public GameObject[] cosmetics;
-    private GameObject instance;
+    private TileSpriteList tileSpriteList;
+    private enum SpriteType { GroundTileTop1, GroundTileTop2, GroundTile1Ledge, GroundTileBottom, CeilingTileAcid};
+    [SerializeField] private SpriteType spriteType;
+    private GameObject tile;
 
 	// Use this for initialization
 	private void Start () {
-        int randObj = Random.Range(0, objects.Length);
-        instance = (GameObject)Instantiate(objects[randObj], transform.position, Quaternion.identity);
-        instance.transform.parent = transform;
+        tileSpriteList = GameObject.FindGameObjectWithTag("StartRoom").GetComponent<TileSpriteList>();
+        int randSprite;
+        Sprite sprite = null;
 
-        //TODO: instantiate cosmetics
-        /*
-        if(cosmetics.Length > 0)
+        switch (spriteType)
         {
-            int randCos = 0;
-            if(objects[randObj].tag == "Ground")
-            {
-                randCos = Random.Range(0, cosmetics.Length);
-                instance = (GameObject)Instantiate(cosmetics[randCos], new Vector2(transform.position.x, transform.position.y + 1), Quaternion.identity);
-                instance.transform.parent = transform;
-            }
-            
-            if(objects[randObj].tag == "Nothing")
-            {
-                randCos = Random.Range(0, cosmetics.Length);
-                instance = (GameObject)Instantiate(cosmetics[randCos], transform.position, Quaternion.identity);
-                instance.transform.parent = transform;
-            }
+            case SpriteType.GroundTileTop1:
+                randSprite = Random.Range(0, tileSpriteList.GroundTileSpriteListTop1.Length);
+                sprite = tileSpriteList.GroundTileSpriteListTop1[randSprite];
+                break;
+            case SpriteType.GroundTileTop2:
+                randSprite = Random.Range(0, tileSpriteList.GroundTileSpriteListTop2.Length);
+                sprite = tileSpriteList.GroundTileSpriteListTop2[randSprite];
+                break;
+            case SpriteType.GroundTile1Ledge:
+                sprite = tileSpriteList.GroundTile1Ledge;
+                break;
+            case SpriteType.GroundTileBottom:
+                randSprite = Random.Range(0, tileSpriteList.GroundTileSpriteListBottom.Length);
+                sprite = tileSpriteList.GroundTileSpriteListBottom[randSprite];
+                break;
+            case SpriteType.CeilingTileAcid:
+                randSprite = Random.Range(0, tileSpriteList.CeilingTileSpriteListAcid.Length);
+                sprite = tileSpriteList.CeilingTileSpriteListAcid[randSprite];
+                break;
         }
-        */
-	}
+
+
+        tile = Instantiate(Resources.Load("Prefab/Tile") as GameObject, transform.position, Quaternion.identity);
+        tile.GetComponent<SpriteRenderer>().sprite = sprite;
+        tile.transform.parent = transform;
+    }
 
     private void OnDrawGizmos()
     {
-        for(int i = 0; i < objects.Length; i++)
-        {
-            if (objects[i].tag == "Enemy")
-                Gizmos.color = Color.red;
-            else if (objects[i].tag == "AcidCeiling" || objects[i].tag == "AcidGround")
-                Gizmos.color = Color.magenta;
-            else
-                Gizmos.color = Color.white;
-        }
-
+        Gizmos.color = Color.white;
         Gizmos.DrawSphere(transform.position, 0.25f);
     }
 }
