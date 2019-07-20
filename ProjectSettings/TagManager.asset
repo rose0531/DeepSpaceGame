@@ -15,6 +15,11 @@ TagManager:
   - SpawnPoint
   - Rooms
   - CameraController
+  - Room L
+  - Room R
+  - Room T
+  - Room B
+  - StartRoom
   layers:
   - Default
   - TransparentFX
