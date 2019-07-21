@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-    public Transform target;
-    public float smoothSpeed;
+    public Transform target;            // Target is what the camera will follow
+    public float smoothSpeed;           // Speed of the camera when moving
     public Vector3 offset;
     public Vector2 maxPosition;
     public Vector2 minPosition;

@@ -2,73 +2,78 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CharacterController : MonoBehaviour {
+public class CharacterController : MonoBehaviour {
 
-    public ICharacterInput input;                       // Input method for the character. (ie. Mouse/Keyboard, XBox, PS4, AI input, etc.)
-    public Rigidbody2D Rb { get; private set; }         // Access to the RigidBody2D of the character.
-    public CharacterStats characterStats;
+    public Rigidbody2D Rb { get; private set; }                                 // Access to the RigidBody2D of the character.
+    public CharacterStats characterStats;                                       // Hold character stats. (Ex: HP, Damage, etc.).
+    public bool m_Grounded;                                                     // Bool set when character is touching the ground.
 
-    [SerializeField] protected Transform characterFeet; // Transform of where the characters feet are.
-    [SerializeField] protected float checkGroundRadius; // OverlapCircle radius we use to check if our player is touching the ground.
-    [SerializeField] protected LayerMask whatIsGround;  // Layer name that the ground is on.
+    [SerializeField] private float m_JumpForce = 400f;                          // Jump force to be applied to the character.
+    [SerializeField] private float m_MaxSpeed = 30f;                            // Max speed the character can travel at.
+    [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = 0.05f; // The amount of smoothing to be applied to the character when it moves.
+    [SerializeField] private LayerMask m_WhatIsGround;                          // Layer name that the ground is on.
+    [SerializeField] private Transform m_GroundCheck;                           // Transform of where the characters feet are.
+    [SerializeField] private float m_GroundCheckRadius;                         // OverlapCircle radius we use to check if our player is touching the ground.
 
-    public virtual void Awake()
+    private Vector2 m_Velocity = Vector2.zero;                                  // Current velocity of the character.
+    private bool m_FacingRight = true;                                          // Bool that keeps track of which direction the character is facing.
+    private float m_MoveSpeedMultiplier = 10f;                                  // Value to multiple the move speed with.
+
+    private void Awake()
     {
         Rb = GetComponent<Rigidbody2D>();
     }
 
-    public virtual void UpdateCharacter()
+    private void FixedUpdate()
     {
-        input.ReadInput();
-    }
+        m_Grounded = false;
 
-    //protected virtual void FixedUpdate()
-    public virtual void UpdateCharacterPhysics()
-    {
-        // Update player horizontal movement.
-        UpdateHorizontalMovement(input.Horizontal);
-
-        // Update player vertical movement if player jumped.
-        characterStats.IsGrounded = Physics2D.OverlapCircle(characterFeet.position, checkGroundRadius, whatIsGround);
-
-        if (input.Jump && characterStats.IsGrounded)
+        // Check if character is touching the ground.
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, m_GroundCheckRadius, m_WhatIsGround);
+        for (int i = 0; i < colliders.Length; i++)
         {
-            ApplyJumpForce();
-            Debug.Log("Apply Jump Force");
+            // If the gameObject the character GroundCheck collided with isn't this gameObject then ...
+            if(colliders[i].gameObject != gameObject)
+            {
+                // ... we are grounded.
+                m_Grounded = true;
+            }
         }
+
+        // Restrict players velocity based on m_MaxSpeed.
+        if (Rb.velocity.magnitude > m_MaxSpeed)
+            Rb.velocity = Rb.velocity.normalized * m_MaxSpeed;     
+    }
+
+    public void Jump()
+    {
+        // If character is grounded ...
+        if (m_Grounded)
+        {
+            // ... then apply a vertical force to the character.
+            m_Grounded = false;
+            Rb.AddForce(new Vector2(0f, m_JumpForce));
+        }
+    }
+
+    public void Move(float move)
+    {
         
-        // Update player transform to face which ever direction the player is walking.
-        if (input.Horizontal < 0 && characterStats.IsFacingRight)
+        // Move character by finding the target velocity.
+        Vector2 targetVelocity = new Vector2(move * m_MoveSpeedMultiplier, Rb.velocity.y);
+
+        // Smooth out the movement before applying velocity to the character.
+        Rb.velocity = Vector2.SmoothDamp(Rb.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+
+        // Flip player based on which direction they are moving and facing.
+        if (move > 0 && !m_FacingRight)
             Flip();
-        if (input.Horizontal > 0 && !characterStats.IsFacingRight)
+        else if (move < 0 && m_FacingRight)
             Flip();
-
-        // Restrict player ascend and descend velocity.
-        if (Rb.velocity.y > characterStats.MaxAscendVelocity)
-            Rb.velocity = new Vector2(Rb.velocity.x, characterStats.MaxAscendVelocity);
-        if (Rb.velocity.y < -characterStats.MaxDecendVelocity)
-            Rb.velocity = new Vector2(Rb.velocity.x, -characterStats.MaxDecendVelocity);
     }
 
-    public void UpdateHorizontalMovement(float xMovement)
-    {
-        // Update the character's horizontal movement.
-        Rb.velocity = new Vector2(xMovement * characterStats.MoveSpeed, Rb.velocity.y);
-    }
 
-    public void ApplyJumpForce()
-    {
-        // Apply the jump force (located in stats) to the character.
-        Rb.velocity = Vector2.up * characterStats.JumpForce;
-    }
-
-    public void ApplyForce(float xForce, float yForce)  // Custom force
-    {
-        // Apply a custom force to the character. (Ex: JetPack uses this to apply vertical force to the character)
-        Rb.AddForce(new Vector2(xForce, yForce));
-    }
-
-    public virtual void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         // Character takes damage.
         characterStats.HP -= damage;
@@ -80,12 +85,13 @@ public abstract class CharacterController : MonoBehaviour {
         }
     }
 
-    protected virtual void Flip()
+    private void Flip()
     {
         // Flip which way the player is facing.
-        characterStats.IsFacingRight = !characterStats.IsFacingRight;
+        m_FacingRight = !m_FacingRight;
 
         // Rotate y axis by 180 to flip the player transform.
         transform.Rotate(0f, 180f, 0f);
     }
+
 }

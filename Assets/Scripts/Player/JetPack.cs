@@ -3,92 +3,102 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class JetPack : MonoBehaviour {
-    [SerializeField]
-    private float jetPackForce;                  // The force applied to the jet pack.
-    [SerializeField]
-    private float fuelCost;                      // The amount of fuel used when activated.
-    [SerializeField]
-    private float fuelAmount;                    // The max amount of fuel stored.
-    [SerializeField]
-    private float refuelMultiplier;              // How fast the jet pack refuels.
 
-    private bool activateJetPack;
+    [Range(0, 50)] [SerializeField] private float m_JetPackForce = 15f; // The force applied to the jet pack.
+    [SerializeField] private float m_FuelAmount = 900;                  // The max amount of fuel stored.
+    [SerializeField] private float m_FuelCost = 8f;                     // The amount of fuel used when activated.
+    [SerializeField] private float m_RefuelMultiplier = 5f;             // How fast the jet pack refuels.
 
-    private float fuelAmountCounter;            // Counter for the fuel stored.
+    private CharacterController controller; // Controller for moving the character.
+    private bool m_HeldJump = false;        // Used for checking if jumped is being held.
+    private float m_FuelAmountCounter = 0;  // Counter for the fuel stored.
 
     //TODO: Make these modular in the future
-    public Image fuelBar;                       // Reference to the fuel bar above the player's head.
-    public GameObject fuelFumesEffect;          // Reference to the fuel fumes effect when the player is activating the jet pack.
-
-
-    public PlayerController player;
+    //public Image fuelBar;                       // Reference to the fuel bar above the player's head.
+    //public GameObject fuelFumesEffect;          // Reference to the fuel fumes effect when the player is activating the jet pack.
 
 
     private void Awake()
     {
-        // Multiply fuelAmount by 60 to scale up fuelAmount so we can slowly decrement fuelAmount by fuelCost every frame.
-        fuelAmount *= 60;
-        fuelAmountCounter = fuelAmount;
+        controller = GetComponent<CharacterController>();
+
+        // Set fuel amount counter to the current fuel amount.
+        m_FuelAmountCounter = m_FuelAmount;
 
         // Hide fuel fumes until player activates jet pack.
-        fuelFumesEffect.SetActive(false);
+        //fuelFumesEffect.SetActive(false);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        //TODO: Jump/HeldJump are triggered but activateJetPack/jump don't apply force sometimes?
-        // Activate jetpack if user is holding jump and the player is not grounded
-        activateJetPack = player.input.HeldJump && !player.characterStats.IsGrounded;
+        /*PROBLEM: heldJump is triggered but ActivateJetPack doesn't apply its force's sometimes?
+          SOLUTION: This issue was caused by BoxCollider2D. Not sure why this component has problems.
+                    Switched BoxCollider2D on the Tile object with four EdgeCollider2D components.
+        */
 
-        if (activateJetPack) Debug.Log("Jetpack activated");
-
-        if (activateJetPack && fuelAmountCounter > 0)
-        {            
-            // Decrement fuleAmountCounter by fuelCost.
-            fuelAmountCounter -= fuelCost;
-
-            // Update fuelBar to refelect current fuel amount.
-            fuelBar.fillAmount = fuelAmountCounter / fuelAmount;
-
-            // Turn on fuel fumes effect.
-            fuelFumesEffect.SetActive(true);
-
-            // Add ascending force.
-            if (player.Rb.velocity.y < 0)
-            {
-                // Apply the jetpack force to the character
-                //float yVelocity = character.Rb.velocity.y;
-                player.Rb.AddForce(new Vector2 (0, -1 * player.Rb.velocity.y + jetPackForce + 5f));
-                //character.ApplyForce(0, -1 * yVelocity + jetPackForce + 5f);
-            }
-            // Add descending force.
-            else
-            {
-                player.ApplyForce(0, jetPackForce);
-            }
-        }
-        else
+        // Check if jump is being held down.
+        if (InputManager.instance.Key("Jump"))
         {
-            // Turn off fuel fumes effect.
-            fuelFumesEffect.SetActive(false);
+            m_HeldJump = true;
         }
 
-        if (player.characterStats.IsGrounded)
+        // If character is grounded, then refuel the jetpack.
+        if (controller.m_Grounded)
         {
             StartCoroutine(Refuel());
         }
     }
 
+
+    private void FixedUpdate()
+    {
+        // If jump is being held down ...
+        if (m_HeldJump)
+        {
+            // ... then activate the jetpack.
+            m_HeldJump = false;
+            ActivateJetpack();
+        }
+    }
+
+    private void ActivateJetpack()
+    {
+        if (m_FuelAmountCounter > 0)
+        {
+            // Decrement m_FuleAmountCounter by m_FuelCost.
+            m_FuelAmountCounter -= m_FuelCost;
+
+            // Update fuelBar to refelect current m_FuelAmount.
+            //fuelBar.fillAmount = m_FuelAmountCounter / m_FuelAmount;
+
+            //TODO: Maybe make this a SO Event?
+            // Turn on fuel fumes effect.
+            //fuelFumesEffect.SetActive(true);
+
+            // Add ascending force to current velocity.
+            if (controller.Rb.velocity.y < 0)
+                controller.Rb.AddForce(new Vector2(0, -controller.Rb.velocity.y + m_JetPackForce));
+            // Add force to counteract descending velocity.
+            else
+                controller.Rb.AddForce(new Vector2(0, m_JetPackForce));
+        }
+        else
+        {
+            //TODO: Maybe make this a SO Event?
+            // Turn off fuel fumes effect.
+            //fuelFumesEffect.SetActive(false);
+        }
+    }
+
     private IEnumerator Refuel()
     {
-        // Refuel the jet pack based on fuel cost and refule multiplier.
-        if (fuelAmountCounter < fuelAmount)
-            fuelAmountCounter += fuelCost * refuelMultiplier;
+        // Refuel the jet pack based on m_FuelCost and m_RefuleMultiplier.
+        if (m_FuelAmountCounter < m_FuelAmount)
+            m_FuelAmountCounter += m_FuelCost * m_RefuelMultiplier;
 
         // Fill fuel bar image.
-        fuelBar.fillAmount += fuelCost / fuelAmount * refuelMultiplier;
+        //fuelBar.fillAmount += m_FuelCost / m_FuelAmount * m_RefuelMultiplier;
         yield return null;
     }
 }

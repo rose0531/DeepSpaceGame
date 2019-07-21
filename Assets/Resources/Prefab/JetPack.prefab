@@ -147,14 +147,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d808a3b91f84c8849acf920a38c59642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jetPackForce: 15
-  fuelCost: 8
-  fuelAmount: 15
-  refuelMultiplier: 3
+  m_JetPackForce: 15
+  m_FuelAmount: 900
+  m_FuelCost: 15
+  m_RefuelMultiplier: 5
   fuelBar: {fileID: 114609756751075366}
   fuelFumesEffect: {fileID: 1686474104045548, guid: 0baba3d14ab19f5479916bc9e7a4c428,
     type: 2}
-  player: {fileID: 114713304112641106, guid: 2623088ba9250e646866964fb8f24eed, type: 2}
 --- !u!114 &114661532012918586
 MonoBehaviour:
   m_ObjectHideFlags: 1
