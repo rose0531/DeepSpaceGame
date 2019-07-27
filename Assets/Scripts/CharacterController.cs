@@ -72,6 +72,11 @@ public class CharacterController : MonoBehaviour {
             Flip();
     }
 
+    public bool IsGrounded()
+    {
+        return m_Grounded;
+    }
+
 
     public void TakeDamage(float damage)
     {

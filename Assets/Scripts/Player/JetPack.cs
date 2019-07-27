@@ -15,13 +15,13 @@ public class JetPack : MonoBehaviour {
     private float m_FuelAmountCounter = 0;  // Counter for the fuel stored.
 
     //TODO: Make these modular in the future
-    //public Image fuelBar;                       // Reference to the fuel bar above the player's head.
+    public Image fuelBar;                       // Reference to the fuel bar above the player's head.
     //public GameObject fuelFumesEffect;          // Reference to the fuel fumes effect when the player is activating the jet pack.
 
 
     private void Awake()
     {
-        controller = GetComponent<CharacterController>();
+        controller = GetComponentInParent<CharacterController>();
 
         // Set fuel amount counter to the current fuel amount.
         m_FuelAmountCounter = m_FuelAmount;
@@ -44,7 +44,7 @@ public class JetPack : MonoBehaviour {
         }
 
         // If character is grounded, then refuel the jetpack.
-        if (controller.m_Grounded)
+        if (controller.IsGrounded())
         {
             StartCoroutine(Refuel());
         }
@@ -70,7 +70,7 @@ public class JetPack : MonoBehaviour {
             m_FuelAmountCounter -= m_FuelCost;
 
             // Update fuelBar to refelect current m_FuelAmount.
-            //fuelBar.fillAmount = m_FuelAmountCounter / m_FuelAmount;
+            fuelBar.fillAmount = m_FuelAmountCounter / m_FuelAmount;
 
             //TODO: Maybe make this a SO Event?
             // Turn on fuel fumes effect.
@@ -98,7 +98,7 @@ public class JetPack : MonoBehaviour {
             m_FuelAmountCounter += m_FuelCost * m_RefuelMultiplier;
 
         // Fill fuel bar image.
-        //fuelBar.fillAmount += m_FuelCost / m_FuelAmount * m_RefuelMultiplier;
+        fuelBar.fillAmount += m_FuelCost / m_FuelAmount * m_RefuelMultiplier;
         yield return null;
     }
 }

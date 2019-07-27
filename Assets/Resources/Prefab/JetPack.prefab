@@ -86,8 +86,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1328723896576636}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 8.89, y: 3.91, z: -0.421875}
-  m_LocalScale: {x: 0.1885074, y: 0.3781255, z: 1}
+  m_LocalPosition: {x: 17.84, y: -0.63999987, z: -0.421875}
+  m_LocalScale: {x: 0.37701502, y: 0.75625145, z: 1}
   m_Children:
   - {fileID: 224221766668384238}
   m_Father: {fileID: 0}
@@ -149,11 +149,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_JetPackForce: 15
   m_FuelAmount: 900
-  m_FuelCost: 15
+  m_FuelCost: 8
   m_RefuelMultiplier: 5
   fuelBar: {fileID: 114609756751075366}
-  fuelFumesEffect: {fileID: 1686474104045548, guid: 0baba3d14ab19f5479916bc9e7a4c428,
-    type: 2}
 --- !u!114 &114661532012918586
 MonoBehaviour:
   m_ObjectHideFlags: 1
