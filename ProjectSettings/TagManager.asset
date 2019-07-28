@@ -54,11 +54,11 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Tile
-    uniqueID: 20336699
-    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Tile
+    uniqueID: 20336699
     locked: 0
   - name: BackgroundLights
     uniqueID: 2511880375
