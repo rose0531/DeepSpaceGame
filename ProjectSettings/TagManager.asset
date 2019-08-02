@@ -20,6 +20,7 @@ TagManager:
   - Room T
   - Room B
   - StartRoom
+  - ParallaxBackground
   layers:
   - Default
   - TransparentFX

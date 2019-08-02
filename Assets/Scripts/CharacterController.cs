@@ -16,7 +16,7 @@ public class CharacterController : MonoBehaviour {
     [SerializeField] private float m_GroundCheckRadius;                         // OverlapCircle radius we use to check if our player is touching the ground.
 
     private Vector2 m_Velocity = Vector2.zero;                                  // Current velocity of the character.
-    private bool m_FacingRight = true;                                          // Bool that keeps track of which direction the character is facing.
+    public bool m_FacingRight = true;                                          // Bool that keeps track of which direction the character is facing.
     private float m_MoveSpeedMultiplier = 10f;                                  // Value to multiple the move speed with.
 
     private void Awake()
@@ -64,12 +64,6 @@ public class CharacterController : MonoBehaviour {
 
         // Smooth out the movement before applying velocity to the character.
         Rb.velocity = Vector2.SmoothDamp(Rb.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
-
-        // Flip player based on which direction they are moving and facing.
-        if (move > 0 && !m_FacingRight)
-            Flip();
-        else if (move < 0 && m_FacingRight)
-            Flip();
     }
 
     public bool IsGrounded()
@@ -90,7 +84,7 @@ public class CharacterController : MonoBehaviour {
         }
     }
 
-    private void Flip()
+    public void Flip()
     {
         // Flip which way the player is facing.
         m_FacingRight = !m_FacingRight;

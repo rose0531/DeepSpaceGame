@@ -6,8 +6,8 @@ public class ParallaxScrolling : MonoBehaviour {
 
     private float length;
     private float startPos;
+    public Transform follow = null;
     [SerializeField] private float parallaxEffect;
-    public GameObject cam;
 
 	void Start () {
         startPos = transform.position.x;
@@ -15,14 +15,17 @@ public class ParallaxScrolling : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-        float temp = cam.transform.position.x * (1 - parallaxEffect);
-        float dist = cam.transform.position.x * parallaxEffect;
+        if (follow != null)
+        {
+            float temp = follow.position.x * (1 - parallaxEffect);
+            float dist = follow.position.x * parallaxEffect;
 
-        transform.position = new Vector3(startPos + dist, transform.position.y, transform.position.z);
+            transform.position = new Vector3(startPos + dist, transform.position.y, transform.position.z);
 
-        if (temp > startPos + length)
-            startPos += length;
-        else if (temp < startPos - length)
-            startPos -= length;
+            if (temp > startPos + length)
+                startPos += length;
+            else if (temp < startPos - length)
+                startPos -= length;
+        }
 	}
 }

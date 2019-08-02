@@ -939,7 +939,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1888980352817276}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4374229466817490}
@@ -1700,7 +1700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc833069d2e21f49bb3a33b202b3623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteType: 3
+  spriteType: 0
 --- !u!114 &114076022166380556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1725,23 +1725,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GroundTileSpriteListTop1:
-  - {fileID: 21300016, guid: 64d75512a935e384380c972b4e401f32, type: 3}
-  - {fileID: 21300018, guid: 64d75512a935e384380c972b4e401f32, type: 3}
-  - {fileID: 21300020, guid: 64d75512a935e384380c972b4e401f32, type: 3}
-  - {fileID: 21300022, guid: 64d75512a935e384380c972b4e401f32, type: 3}
+  - {fileID: 21300016, guid: ac108846b87871243ae4d26d10970e69, type: 3}
+  - {fileID: 21300018, guid: ac108846b87871243ae4d26d10970e69, type: 3}
+  - {fileID: 21300020, guid: ac108846b87871243ae4d26d10970e69, type: 3}
+  - {fileID: 21300022, guid: ac108846b87871243ae4d26d10970e69, type: 3}
   GroundTileSpriteListTop2:
-  - {fileID: 21300048, guid: 64d75512a935e384380c972b4e401f32, type: 3}
-  - {fileID: 21300050, guid: 64d75512a935e384380c972b4e401f32, type: 3}
-  - {fileID: 21300052, guid: 64d75512a935e384380c972b4e401f32, type: 3}
-  - {fileID: 21300054, guid: 64d75512a935e384380c972b4e401f32, type: 3}
+  - {fileID: 21300044, guid: ac108846b87871243ae4d26d10970e69, type: 3}
+  - {fileID: 21300046, guid: ac108846b87871243ae4d26d10970e69, type: 3}
+  - {fileID: 21300048, guid: ac108846b87871243ae4d26d10970e69, type: 3}
+  - {fileID: 21300050, guid: ac108846b87871243ae4d26d10970e69, type: 3}
   GroundTileSpriteListBottom:
-  - {fileID: 21300032, guid: 64d75512a935e384380c972b4e401f32, type: 3}
-  - {fileID: 21300034, guid: 64d75512a935e384380c972b4e401f32, type: 3}
+  - {fileID: 21300032, guid: ac108846b87871243ae4d26d10970e69, type: 3}
+  - {fileID: 21300034, guid: ac108846b87871243ae4d26d10970e69, type: 3}
   CeilingTileSpriteListAcid:
-  - {fileID: 21300026, guid: 64d75512a935e384380c972b4e401f32, type: 3}
-  - {fileID: 21300028, guid: 64d75512a935e384380c972b4e401f32, type: 3}
-  - {fileID: 21300030, guid: 64d75512a935e384380c972b4e401f32, type: 3}
-  GroundTile1Ledge: {fileID: 21300024, guid: 64d75512a935e384380c972b4e401f32, type: 3}
+  - {fileID: 21300026, guid: ac108846b87871243ae4d26d10970e69, type: 3}
+  - {fileID: 21300028, guid: ac108846b87871243ae4d26d10970e69, type: 3}
+  - {fileID: 21300030, guid: ac108846b87871243ae4d26d10970e69, type: 3}
+  GroundTile1Ledge: {fileID: 21300024, guid: ac108846b87871243ae4d26d10970e69, type: 3}
 --- !u!114 &114156932229381606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1801,7 +1801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc833069d2e21f49bb3a33b202b3623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteType: 3
+  spriteType: 0
 --- !u!114 &114262113053874204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1825,7 +1825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc833069d2e21f49bb3a33b202b3623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteType: 3
+  spriteType: 0
 --- !u!114 &114294670715278058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1897,7 +1897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc833069d2e21f49bb3a33b202b3623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteType: 3
+  spriteType: 0
 --- !u!114 &114383941337601704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2017,7 +2017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc833069d2e21f49bb3a33b202b3623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteType: 0
+  spriteType: 2
 --- !u!114 &114711356006677716
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\Rooms&amp;Spawning\TileSpriteList.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Keybindings.cs" />
+    <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\UnusedAssets\LevelGeneration.cs" />
     <Compile Include="Assets\UnusedAssets\Room.cs" />
     <Compile Include="Assets\UnusedAssets\SpanwRoom.cs" />
