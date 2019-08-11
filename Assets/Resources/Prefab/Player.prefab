@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 114631910106798428}
   m_Layer: 0
   m_Name: JetPack
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,6 @@ GameObject:
   - component: {fileID: 58772625153819048}
   - component: {fileID: 111743127118368292}
   - component: {fileID: 95067222214106936}
-  - component: {fileID: 114786672742174506}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -146,8 +145,23 @@ GameObject:
   - component: {fileID: 114629518442329492}
   m_Layer: 0
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1937005171299068
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4794295603315424}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Player
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -175,7 +189,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4794295603315424}
   m_Father: {fileID: 4912544312102828}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -230,6 +245,19 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4912544312102828}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4794295603315424
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1937005171299068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: -0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4049629455587554}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4912544312102828
@@ -430,7 +458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a060c0e79bba24992d91fcbf1816e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onWeaponFlip: {fileID: 11400000, guid: b343971ce15e9904988270985e8a3568, type: 2}
+  shootPoint: {fileID: 1937005171299068}
+  m_FireRate: 0.25
 --- !u!114 &114631910106798428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -490,41 +519,13 @@ MonoBehaviour:
   m_Grounded: 0
   m_JumpForce: 200
   m_MaxSpeed: 7
-  m_MovementSmoothing: 0.05
+  m_MovementSmoothing: 0.15
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 512
   m_GroundCheck: {fileID: 4540238976322510}
   m_GroundCheckRadius: 0.2
   m_FacingRight: 1
---- !u!114 &114786672742174506
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1854754457710578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc920e8282488204483d74950fe1d379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: b343971ce15e9904988270985e8a3568, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114741235978904104}
-        m_MethodName: Flip
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityVoidEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!212 &212288010465554558
 SpriteRenderer:
   m_ObjectHideFlags: 1

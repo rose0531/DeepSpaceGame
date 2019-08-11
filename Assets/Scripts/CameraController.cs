@@ -27,8 +27,7 @@ public class CameraController : MonoBehaviour {
             Vector3 desiredPosition = (focusPointPercentBetweenTargetAndMouse * distBetweenMouseAndTarget) + target.position;
             if (smoothing)
             {
-                Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-                transform.position = smoothedPosition;
+                transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
             }else
                 transform.position = desiredPosition;
         }

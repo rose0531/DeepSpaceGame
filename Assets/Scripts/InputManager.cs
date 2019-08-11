@@ -37,4 +37,9 @@ public class InputManager : MonoBehaviour {
     {
         return Input.GetKey(keybindings.CheckKey(key));
     }
+
+    public bool MouseButton(string key)
+    {
+        return Input.GetMouseButton(keybindings.CheckMouse(key));
+    }
 }

@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\Player\JetPack.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\PopupText.cs" />
+    <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\Rooms&amp;Spawning\RandomizeGroundTile.cs" />
     <Compile Include="Assets\Scripts\Rooms&amp;Spawning\RoomDestroyer.cs" />
     <Compile Include="Assets\Scripts\Rooms&amp;Spawning\RoomLists.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\Scripts\Rooms&amp;Spawning\TileSpriteList.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Keybindings.cs" />
+    <Compile Include="Assets\Scripts\Trigger.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\UnusedAssets\LevelGeneration.cs" />
     <Compile Include="Assets\UnusedAssets\Room.cs" />

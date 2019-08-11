@@ -16,7 +16,7 @@ public class CharacterController : MonoBehaviour {
     [SerializeField] private float m_GroundCheckRadius;                         // OverlapCircle radius we use to check if our player is touching the ground.
 
     private Vector2 m_Velocity = Vector2.zero;                                  // Current velocity of the character.
-    public bool m_FacingRight = true;                                          // Bool that keeps track of which direction the character is facing.
+    public bool m_FacingRight = true;                                           // Bool that keeps track of which direction the character is facing.
     private float m_MoveSpeedMultiplier = 10f;                                  // Value to multiple the move speed with.
 
     private void Awake()

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Keybindings : ScriptableObject {
 
     public KeyCode jump, attack;
+    public int shoot;
 
     public KeyCode CheckKey(string key)
     {
@@ -19,6 +20,21 @@ public class Keybindings : ScriptableObject {
 
             default:
                 return KeyCode.None;
+        }
+    }
+
+    public int CheckMouse(string button)
+    {
+        switch (button)
+        {
+            case "LeftMouseButton":
+                return 0;
+
+            case "RightMouseButton":
+                return 1;
+
+            default:
+                return -1;
         }
     }
 }

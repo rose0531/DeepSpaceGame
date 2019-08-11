@@ -21,6 +21,8 @@ TagManager:
   - Room B
   - StartRoom
   - ParallaxBackground
+  - Empty
+  - Trigger
   layers:
   - Default
   - TransparentFX
