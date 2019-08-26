@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4782939494250856}
   - component: {fileID: 212608648364761374}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PlayerLight
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4338303310528514}
   - component: {fileID: 114631910106798428}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: JetPack
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4329916662268076}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShootingPoint
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 223661896398102310}
   - component: {fileID: 114045795667871662}
   - component: {fileID: 114662272152276372}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: JetPack_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 224881166311918654}
   - component: {fileID: 222782472840038058}
   - component: {fileID: 114201586973804162}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FuelBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 58772625153819048}
   - component: {fileID: 111743127118368292}
   - component: {fileID: 95067222214106936}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 224700761987185658}
   - component: {fileID: 222879470292380352}
   - component: {fileID: 114260628377186828}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FuelBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 4049629455587554}
   - component: {fileID: 212288010465554558}
   - component: {fileID: 114629518442329492}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Gun
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4794295603315424}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShootPoint
   m_TagString: Player
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -173,7 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4540238976322510}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GroundCheck
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -471,7 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d808a3b91f84c8849acf920a38c59642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JetPackForce: 15
+  m_JetPackForce: 20
   m_FuelAmount: 900
   m_FuelCost: 8
   m_RefuelMultiplier: 5

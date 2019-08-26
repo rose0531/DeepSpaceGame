@@ -34,11 +34,9 @@ public class SpawnObjectsEditor : Editor {
                 break;
             case SpawnObjects.ObjectType.RoomLayout: // Room Layout
                 EditorGUILayout.PropertyField(roomLayoutProp, new GUIContent("Layout"));
-                tileTypeProp.enumValueIndex = (int)SpawnObjects.TileType.None;
                 break;
             case SpawnObjects.ObjectType.Enemy: // Enemy
                 EditorGUILayout.PrefixLabel("Enemy");
-                tileTypeProp.enumValueIndex = (int)SpawnObjects.TileType.None;
                 break;
         }
 

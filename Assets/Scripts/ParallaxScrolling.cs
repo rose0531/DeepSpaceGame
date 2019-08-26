@@ -4,28 +4,35 @@ using UnityEngine;
 
 public class ParallaxScrolling : MonoBehaviour {
 
-    private float length;
-    private float startPos;
+    private float lengthX, lengthY;
+    private float startPosX, startPosY;
     public Transform follow = null;
-    [SerializeField] private float parallaxEffect;
+    [SerializeField] private float parallaxEffectX;
+    [SerializeField] private float parallaxEffectY;
 
 	void Start () {
-        startPos = transform.position.x;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        startPosX = transform.position.x;
+        startPosY = transform.position.y;
+        lengthX = GetComponent<SpriteRenderer>().bounds.size.x;
+        lengthY = GetComponent<SpriteRenderer>().bounds.size.y;
 	}
 	
 	void FixedUpdate () {
         if (follow != null)
         {
-            float temp = follow.position.x * (1 - parallaxEffect);
-            float dist = follow.position.x * parallaxEffect;
+            float leftDist = follow.position.x * (1 - parallaxEffectX);
+            float rightDist = follow.position.x * parallaxEffectX;
+            float upDist = follow.position.y * parallaxEffectY;
+            float downDist = follow.position.y * (1 - parallaxEffectY);
+            
+            transform.position = new Vector3(startPosX + rightDist, startPosY + downDist, transform.position.z);
 
-            transform.position = new Vector3(startPos + dist, transform.position.y, transform.position.z);
+            if (leftDist > startPosX + lengthX)
+                startPosX += lengthX;
+            else if (leftDist < startPosX - lengthX)
+                startPosX -= lengthX;
+            
 
-            if (temp > startPos + length)
-                startPos += length;
-            else if (temp < startPos - length)
-                startPos -= length;
         }
 	}
 }

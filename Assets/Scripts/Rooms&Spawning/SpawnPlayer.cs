@@ -25,6 +25,13 @@ public class SpawnPlayer : MonoBehaviour {
     {
         player = Instantiate(Resources.Load("Prefab/Player") as GameObject, transform.position, Quaternion.identity);
         GameObject.FindGameObjectWithTag("CameraController").GetComponent<CameraController>().target = player.transform;
-        GameObject.FindGameObjectWithTag("ParallaxBackground").GetComponent<ParallaxScrolling>().follow = player.transform;
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("ParallaxBackground");
+        for (int i = 0; i < gameObjects.Length; i++)
+        {
+            if (gameObjects[i].GetComponent<ParallaxScrolling>() != null)
+            {
+                gameObjects[i].GetComponent<ParallaxScrolling>().follow = player.transform;
+            }
+        }
     }
 }

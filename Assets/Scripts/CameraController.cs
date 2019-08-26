@@ -13,16 +13,19 @@ public class CameraController : MonoBehaviour {
                                                                                        Example: 0.25f would focus the camera 25% of the distance
                                                                                                 between the Mouse and Target.
                                                                                     */
+    private float rad = 5.0f;
 
     /* Smoothing the camera in LateUpdate causes a jittery effect to the player sprite.
        FixedUpdate removes any jitters for some reason.
     */
     private void FixedUpdate()
     {
-        if(target != null)
+        //Vector3 c = Camera.main.ScreenToWorldPoint(Input.mousePosition) - target.position;
+        //float d = Vector3.Magnitude(c);
+
+        if (target != null)
         {
             Vector3 mousePosToWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //Vector3 targetPos = 
             Vector3 distBetweenMouseAndTarget = mousePosToWorld - target.position;
             Vector3 desiredPosition = (focusPointPercentBetweenTargetAndMouse * distBetweenMouseAndTarget) + target.position;
             if (smoothing)

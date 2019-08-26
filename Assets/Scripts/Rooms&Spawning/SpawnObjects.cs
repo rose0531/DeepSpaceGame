@@ -3,15 +3,14 @@
 public class SpawnObjects : MonoBehaviour {
 
     // Types of objects you can spawn.
-    public enum ObjectType { Tile, RoomLayout, Enemy};
+    public enum ObjectType { Tile, RoomLayout, Enemy, Nothing};
 
     // Variables for Tile spawning.
     public enum TileType {    GroundTileTop1,
                               GroundTileTop2,
                               GroundTile1Ledge,
                               GroundTileBottom,
-                              CeilingTileAcid,
-                              None};
+                              CeilingTileAcid};
 
     public ObjectType objectType;
     public TileType tileType;
@@ -54,18 +53,20 @@ public class SpawnObjects : MonoBehaviour {
                     break;
             }
 
-
             tile = Instantiate(Resources.Load("Prefab/Tile") as GameObject, transform.position, Quaternion.identity);
             tile.GetComponent<SpriteRenderer>().sprite = sprite;
             tile.transform.parent = transform;
         }else if (objectType == ObjectType.RoomLayout)
         {
-            Debug.Log("In");
             if(roomLayout != null)
             {
-                Debug.Log("Spawning platform");
-                Instantiate(roomLayout, roomLayout.transform.position, Quaternion.identity);
+                Debug.Log("Spawning room layout");
+                GameObject layout = Instantiate(roomLayout, transform.position, Quaternion.identity);
+                layout.transform.parent = transform;
             }
+        }else if (objectType == ObjectType.Enemy)
+        {
+            //Spawn enemy
         }
     }
 
