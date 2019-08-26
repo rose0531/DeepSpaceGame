@@ -23,7 +23,8 @@ public class EnemyAI : MonoBehaviour {
         var states = new Dictionary<Type, BaseState>()
         {
             { typeof(WanderState), new WanderState(this, whatIsGround, whatIsPlayer)},
-            { typeof(ChaseState), new ChaseState(this)}
+            { typeof(ChaseState), new ChaseState(this)},
+            { typeof(AttackState), new AttackState(this)}
         };
         GetComponent<StateMachine>().SetState(states);
     }
@@ -35,6 +36,6 @@ public class EnemyAI : MonoBehaviour {
 
     public void FireProjectile()
     {
-
+        Instantiate(Resources.Load("Prefab/EnemyProjectile") as GameObject, transform.position, transform.rotation);
     }
 }

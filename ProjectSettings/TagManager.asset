@@ -36,8 +36,8 @@ TagManager:
   - Ground
   - Enemy
   - Player
-  - 
-  - 
+  - SpawnPoint
+  - Trigger
   - 
   - 
   - 

@@ -107,7 +107,6 @@ public class WanderState : BaseState
                 PlayerMovement player = hit.collider.GetComponent<PlayerMovement>();
                 if(player != null)
                 {
-                    Debug.Log("hit player");
                     return player.transform;
                 }
                 else

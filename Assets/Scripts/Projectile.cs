@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
     [SerializeField] private float m_Speed;
+    [SerializeField] private string[] tags;
 
     private void Update()
     {
@@ -12,12 +13,14 @@ public class Projectile : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.CompareTag("Player") && 
-            !other.gameObject.CompareTag("SpawnPoint") &&
-            !other.gameObject.CompareTag("Trigger"))
+        for (int i = 0; i < tags.Length; i++)
         {
-            Debug.Log("Destroyed");
-            Destroy(gameObject);
+            if(other.gameObject.CompareTag(tags[i]))
+            {
+                return;
+            }
         }
+        Debug.Log("destroyed");
+        Destroy(gameObject);
     }
 }

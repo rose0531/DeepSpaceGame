@@ -63,6 +63,7 @@
     <Compile Include="Assets\Material\ScrollUV.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CharacterController.cs" />
+    <Compile Include="Assets\Scripts\Enemy\AttackState.cs" />
     <Compile Include="Assets\Scripts\Enemy\BaseState.cs" />
     <Compile Include="Assets\Scripts\Enemy\ChaseState.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAI.cs" />
