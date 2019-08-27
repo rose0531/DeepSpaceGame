@@ -7,10 +7,6 @@ public class ChaseState : BaseState {
 
     private EnemyAI _enemyAI;
     private Quaternion desiredRotation;
-    private float turnSpeed = 0.2f;
-    private float enemySpeed = 5f;
-    private float agroRange = 8f;
-    private float attackRange = 5f;
 
     public ChaseState(EnemyAI enemyAI) : base(enemyAI.gameObject)
     {
@@ -28,20 +24,24 @@ public class ChaseState : BaseState {
         Vector2 dir = target2D - transform2D;
         float rotZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         desiredRotation = Quaternion.Euler(0f, 0f, rotZ);
-        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, turnSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, _enemyAI.settings.TurnSpeed);
 
         // Move towards the target.
-        transform.Translate(Vector2.right * Time.deltaTime * enemySpeed);
+        transform.Translate(Vector2.right * Time.deltaTime * _enemyAI.settings.ChaseSpeed);
 
         float distance = Vector2.Distance(transform2D, target2D);
 
-        Debug.DrawRay(transform.position, transform.right * agroRange, Color.blue);
+        Debug.DrawRay(transform.position, transform.right * _enemyAI.settings.AgroMaxDistance, Color.blue);
 
-        if (distance <= agroRange)
+        if(distance > _enemyAI.settings.AgroMaxDistance)
+        {
+            return typeof(WanderState);
+        }
+
+        if (distance <= _enemyAI.settings.AttackDistance)
         {
             return typeof(AttackState);
-        }
-        
+        }        
 
         return null;
     }

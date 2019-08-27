@@ -6,28 +6,18 @@ using UnityEngine;
 public class WanderState : BaseState
 {
     private EnemyAI _enemyAI;
-    private float turnTime = 8f;
+
     private float turnTimeCounter;
-    private float randomDirectionRadius = 4.5f;
-    private float enemySpeed = 3f;
-    private Quaternion desiredRotation; 
-    private float turnSpeed = 0.2f;
+    private Quaternion desiredRotation;
     private Vector2 direction;
-    private float raycastDistance = 1.5f;
-    private LayerMask whatIsGround;
-    private LayerMask whatIsPlayer;
-    private int agroCheckRays = 24;
-    private float agroRadius = 5f;
 
-    private Quaternion agroStartingAngle = Quaternion.AngleAxis(-60, Vector2.up);
-    private Quaternion agroStepAngle = Quaternion.AngleAxis(5, Vector2.up);
+    private Quaternion agroStartingAngle = Quaternion.AngleAxis(-60, Vector2.right);
+    private Quaternion agroStepAngle = Quaternion.AngleAxis(5, Vector2.right);
 
-    public WanderState(EnemyAI enemyAI, LayerMask ground, LayerMask player) : base(enemyAI.gameObject)
+    public WanderState(EnemyAI enemyAI) : base(enemyAI.gameObject)
     {
         _enemyAI = enemyAI;
-        whatIsGround = ground;
-        whatIsPlayer = player;
-        turnTimeCounter = turnTime;
+        turnTimeCounter = _enemyAI.settings.TurnTimer;
     }
 
     public override Type Tick()
@@ -45,19 +35,19 @@ public class WanderState : BaseState
         if (IsForwardBlocked() || turnTimeCounter <= 0)
         {
             FindRandomDestination();
-            turnTimeCounter = turnTime;
+            turnTimeCounter = _enemyAI.settings.TurnTimer;
         }
         else
             turnTimeCounter -= Time.deltaTime;
 
         // Draw our raycast for debugging.
-        Debug.DrawRay(transform.position, transform.right * raycastDistance, Color.magenta);
+        Debug.DrawRay(transform.position, transform.right * _enemyAI.settings.WallCheckRaycastDistance, Color.magenta);
 
         // Apply our desired rotation.
-        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, turnSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, _enemyAI.settings.TurnSpeed);
 
         // Move the enemy.
-        transform.Translate(Vector2.right * Time.deltaTime * enemySpeed);
+        transform.Translate(Vector2.right * Time.deltaTime * _enemyAI.settings.MoveSpeed);
  
         return null;
     }
@@ -66,8 +56,8 @@ public class WanderState : BaseState
     private void FindRandomDestination()
     {
         // Pick a random destination.
-        Vector2 randDirection = new Vector2(UnityEngine.Random.Range(-randomDirectionRadius, randomDirectionRadius),
-                                            UnityEngine.Random.Range(-randomDirectionRadius, randomDirectionRadius));
+        Vector2 randDirection = new Vector2(UnityEngine.Random.Range(-_enemyAI.settings.RandomDirectionRange, _enemyAI.settings.RandomDirectionRange),
+                                            UnityEngine.Random.Range(-_enemyAI.settings.RandomDirectionRange, _enemyAI.settings.RandomDirectionRange));
         Vector2 pointInFrontOfEnemy = transform.position + (transform.right * 4f);
 
         // Random point we want to travel to.
@@ -89,7 +79,10 @@ public class WanderState : BaseState
 
     private bool IsForwardBlocked()
     {
-        return Physics2D.Raycast(transform.position, transform.right * raycastDistance, raycastDistance, whatIsGround);
+        return Physics2D.Raycast(transform.position,                    // Enemy position.
+                                 transform.right,                       // Direction to fire the raycast.
+                                 _enemyAI.settings.WallCheckRaycastDistance,    // Distance to fire the raycast.
+                                 _enemyAI.settings.WhatIsGround);               // LayerMask to check for.
     }
 
     private Transform CheckForAgro()
@@ -98,66 +91,19 @@ public class WanderState : BaseState
         Vector2 dir = angle * Vector2.right;
         RaycastHit2D hit;
 
-        for (int i = 0; i < agroCheckRays; i++)
+        for (int i = 0; i < _enemyAI.settings.AgroRays; i++)
         {
-            hit = Physics2D.Raycast(transform.position, dir, agroRadius, whatIsPlayer);
+            hit = Physics2D.Raycast(transform.position, dir, _enemyAI.settings.AgroDistance, _enemyAI.settings.WhatIsPlayer);
             if (hit)
             {
-                Debug.Log("hit: " + hit.collider.name);
+                Debug.DrawRay(transform.position, dir * _enemyAI.settings.AgroDistance, Color.yellow);
                 PlayerMovement player = hit.collider.GetComponent<PlayerMovement>();
                 if(player != null)
-                {
                     return player.transform;
-                }
-                else
-                {
-                    Debug.DrawRay(transform.position, dir * agroRadius, Color.yellow);
-                }
-            }
-            else
-            {
-                Debug.DrawRay(transform.position, dir * agroRadius, Color.white);
             }
             dir = agroStepAngle * dir;
         }
 
         return null;
     }
-    /*
-    Quaternion startingAngle = Quaternion.AngleAxis(-60, Vector3.up);
-    Quaternion stepAngle = Quaternion.AngleAxis(5, Vector3.up);
-
-    private Transform CheckForAggro()
-    {
-        float aggroRadius = 5f;
-
-        RaycastHit hit;
-        var angle = transform.rotation * startingAngle;
-        var direction = angle * Vector3.forward;
-        var pos = transform.position;
-        for (var i = 0; i < 24; i++)
-        {
-            if (Physics.Raycast(pos, direction, out hit, aggroRadius))
-            {
-                var drone = hit.collider.GetComponent<Drone>();
-                if (drone != null && drone.Team != gameObject.GetComponent<Drone>().Team)
-                {
-                    Debug.DrawRay(pos, direction * hit.distance, Color.red);
-                    return drone.transform;
-                }
-                else
-                {
-                    Debug.DrawRay(pos, direction * hit.distance, Color.yellow);
-                }
-            }
-            else
-            {
-                Debug.DrawRay(pos, direction * aggroRadius, Color.white);
-            }
-            direction = stepAngle * direction;
-        }
-
-        return null;
-    }
-    */
 }

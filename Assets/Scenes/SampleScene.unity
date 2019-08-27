@@ -2100,6 +2100,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 2048
+  settings: {fileID: 11400000, guid: d44008aec1cb3cd4fabefd3d22697df2, type: 2}
 --- !u!1 &961168280
 GameObject:
   m_ObjectHideFlags: 0

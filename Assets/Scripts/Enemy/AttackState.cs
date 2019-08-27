@@ -6,16 +6,13 @@ using UnityEngine;
 public class AttackState : BaseState
 {
     private EnemyAI _enemyAI;
-    private float enemyFireRate = 0.25f;
     private float enemyFireRateCounter;
     private Quaternion desiredRotation;
-    private float turnSpeed = 0.2f;
-    private float agroRange = 8f;
 
     public AttackState(EnemyAI enemyAI) : base(enemyAI.gameObject)
     {
         _enemyAI = enemyAI;
-        enemyFireRateCounter = enemyFireRate;
+        enemyFireRateCounter = _enemyAI.settings.FireRate;
     }
 
     public override Type Tick()
@@ -28,18 +25,20 @@ public class AttackState : BaseState
         Vector2 dir = target2D - transform2D;
         float rotZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         desiredRotation = Quaternion.Euler(0f, 0f, rotZ);
-        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, turnSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, _enemyAI.settings.TurnSpeed);
 
         if (enemyFireRateCounter <= 0f)
         {
-            Debug.Log("Attack");
             _enemyAI.FireProjectile();
-            enemyFireRateCounter = enemyFireRate;
+            enemyFireRateCounter = _enemyAI.settings.FireRate;
         }
 
         float distance = Vector2.Distance(transform2D, target2D);
 
-        if(distance > agroRange)
+        if(distance > _enemyAI.settings.AttackDistance && distance <= _enemyAI.settings.AgroMaxDistance)
+        {
+            return typeof(ChaseState);
+        }else if(distance > _enemyAI.settings.AgroMaxDistance)
         {
             return typeof(WanderState);
         }

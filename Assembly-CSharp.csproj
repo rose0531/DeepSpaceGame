@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\Rooms&amp;Spawning\SpawnPlayer.cs" />
     <Compile Include="Assets\Scripts\Rooms&amp;Spawning\TileSpriteList.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\CharacterStats.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\EnemySettings.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Keybindings.cs" />
     <Compile Include="Assets\Scripts\Trigger.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />

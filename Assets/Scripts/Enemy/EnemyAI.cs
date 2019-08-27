@@ -7,8 +7,7 @@ using System;
 public class EnemyAI : MonoBehaviour {
 
 	public Transform Target { get; private set; }
-    public LayerMask whatIsGround;
-    public LayerMask whatIsPlayer;
+    public EnemySettings settings;
 
     public StateMachine StateMachine => GetComponent<StateMachine>();
 
@@ -22,7 +21,7 @@ public class EnemyAI : MonoBehaviour {
     {
         var states = new Dictionary<Type, BaseState>()
         {
-            { typeof(WanderState), new WanderState(this, whatIsGround, whatIsPlayer)},
+            { typeof(WanderState), new WanderState(this)},
             { typeof(ChaseState), new ChaseState(this)},
             { typeof(AttackState), new AttackState(this)}
         };
