@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Name: BasicEnemySettings
   m_EditorClassIdentifier: 
   TurnSpeed: 0.2
-  TurnTimer: 8
+  MaxTurnTimer: 8
+  MinTurnTimer: 6
   RandomDirectionRange: 4.5
   MoveSpeed: 3
   ChaseSpeed: 4
   WallCheckRaycastDistance: 1.5
   AgroRays: 24
   AgroDistance: 6
-  AgroMaxDistance: 9
-  AttackDistance: 5
+  AgroMaxDistance: 11
+  AttackDistance: 7
   FireRate: 0.5
   WhatIsGround:
     serializedVersion: 2

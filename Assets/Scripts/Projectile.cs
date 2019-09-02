@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
-    [SerializeField] private float m_Speed;
+    [SerializeField] private WeaponStats stats;
     [SerializeField] private string[] tags;
 
     private void Update()
     {
-        transform.Translate(Vector3.right * m_Speed * Time.deltaTime);
+        transform.Translate(Vector3.right * stats.ProjectileSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -20,7 +20,10 @@ public class Projectile : MonoBehaviour {
                 return;
             }
         }
-        Debug.Log("destroyed");
+
+
+        other.GetComponent<HealthSystem>()?.TakeDamage(stats.Damage);
+
         Destroy(gameObject);
     }
 }

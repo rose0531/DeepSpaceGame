@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9295f33cb58defc4c84cfb4787d563a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 20
+  stats: {fileID: 11400000, guid: f5de0bd6fbd1d8f468f9011ecd9a9bb2, type: 2}
   tags:
   - Player
   - Trigger

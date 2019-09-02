@@ -2,50 +2,86 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System;
 
 public class PopupText : MonoBehaviour {
     public float destroyTime;
-    private GameObject popupTextPrefab;
+    private GameObject popupTextHolderPrefab;
     private GameObject instance;
     [SerializeField] private float enemyDamagePopupTextRandomness;
+    [SerializeField] private float rotationRange;
+    private const int SIZE = 2;
+    [SerializeField] private Color[] highDamageColorRange = new Color[SIZE];
+    [SerializeField] private Color[] midDamageColorRange = new Color[SIZE];
+    [SerializeField] private Color[] lowDamageColorRange = new Color[SIZE];
+
+    private void OnValidate()
+    {
+        if (highDamageColorRange.Length != SIZE)
+            Array.Resize(ref highDamageColorRange, SIZE);
+        if (midDamageColorRange.Length != SIZE)
+            Array.Resize(ref midDamageColorRange, SIZE);
+        if (lowDamageColorRange.Length != SIZE)
+            Array.Resize(ref lowDamageColorRange, SIZE);
+    }
 
     private void Awake()
     {
-        popupTextPrefab = Resources.Load<GameObject>("Prefab/PopupTextHolder");     // Load the popupText prefab.
+        // Load the popupTextHolder prefab.
+        popupTextHolderPrefab = Resources.Load<GameObject>("Prefab/PopupTextCanvas");
     }
 
-    private void Start()
+    private void Update()
     {
-        //Destroy(gameObject, destroyTime);
+        if(instance != null)
+        {
+            Destroy(instance, destroyTime);
+        }
     }
 
-    public void SpawnPopupText(float damage)
+    public void SpawnPopupTextDamage(float damage, int currentHealth, Vector3 position)
     {
-        ShowPopupText(damage.ToString());
+        float damageRelativeToHealth = damage / currentHealth;
+        Color[] textColor;
+        if (damageRelativeToHealth < 0.3f)
+            textColor = lowDamageColorRange;
+        else if (damageRelativeToHealth >= 0.3f && damageRelativeToHealth < 0.6f)
+            textColor = midDamageColorRange;
+        else
+            textColor = highDamageColorRange;
+
+        ShowPopupText(damage.ToString(), textColor, position);
     }
 
-    //TODO: spawn text on enemy position
-    private void ShowPopupText(string text)
+    private void ShowPopupText(string text, Color[] textColor, Vector3 position)
     {
+        // Get position of enemy and add some randomness to the position.
+        Vector2 enemyPositionRandomness = new Vector2(position.x + UnityEngine.Random.Range(-enemyDamagePopupTextRandomness, enemyDamagePopupTextRandomness),
+                                                      position.y + UnityEngine.Random.Range(-enemyDamagePopupTextRandomness, enemyDamagePopupTextRandomness));
 
-        Debug.Log("Text spawned! " + text);
-        // Instantiate popupText gameobject at the enemies position and set it's parent to be the canvas.
+        // Instantiate the popupTextHolder at Vector3.zero.
+        instance = Instantiate(popupTextHolderPrefab, enemyPositionRandomness, Quaternion.identity);
+        Transform textMeshPro = instance.transform.Find("TextMeshPro");
 
+        // Get the TextMeshPro script from the child of the instance and set the text.
+        textMeshPro.GetComponent<TextMeshProUGUI>().text = text;
 
-        // Convert the enemies world position to the position on the camera's screen.
-        // Also add some randomness to the new screen position.
-        Vector2 enemyPositionRandomness = new Vector2(transform.position.x + Random.Range(-enemyDamagePopupTextRandomness, enemyDamagePopupTextRandomness), transform.position.y + Random.Range(-enemyDamagePopupTextRandomness, enemyDamagePopupTextRandomness));
-        Vector2 screenPosition = Camera.main.WorldToScreenPoint(enemyPositionRandomness);
+        // Pick random range between the colors provided in the textColor array.
+        Color randomColor = new Color(UnityEngine.Random.Range(textColor[0].r, textColor[1].r),
+                                      UnityEngine.Random.Range(textColor[0].g, textColor[1].g),
+                                      UnityEngine.Random.Range(textColor[0].b, textColor[1].b));
 
-        // Get the child TextMeshProUGUI on the popupText gameobject and change the text.
-        popupTextPrefab.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
+        textMeshPro.GetComponent<TextMeshProUGUI>().faceColor = randomColor;
 
-        // Anchor the popupText to the bottom left of the canvas.
-        popupTextPrefab.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
-        popupTextPrefab.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+        // Set the position of the TextMeshPro RectTransform to the enemy position with randomness.
+        textMeshPro.GetComponent<RectTransform>().anchoredPosition = enemyPositionRandomness;
 
-        // Set the anchored position of the popupText to the new screen position.
-        popupTextPrefab.GetComponent<RectTransform>().anchoredPosition = screenPosition;
+        // Set random rotation.
+        Quaternion angle = Quaternion.AngleAxis(UnityEngine.Random.Range(-rotationRange, rotationRange), Vector3.forward);
+        textMeshPro.GetComponent<RectTransform>().rotation = angle;
+
+        // Set instance parent.
+        instance.transform.SetParent(transform);
     }
 
 }

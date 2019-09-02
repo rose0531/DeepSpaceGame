@@ -82,6 +82,9 @@
     <Compile Include="Assets\Scripts\GameEvents\UnityEvents\UnityFloatEvent.cs" />
     <Compile Include="Assets\Scripts\GameEvents\UnityEvents\UnityVoidEvent.cs" />
     <Compile Include="Assets\Scripts\GameEvents\Void.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\HealthSystem.cs" />
+    <Compile Include="Assets\Scripts\IDamageable.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\ParallaxScrolling.cs" />
     <Compile Include="Assets\Scripts\Player\JetPack.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\EnemySettings.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Keybindings.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\WeaponStats.cs" />
     <Compile Include="Assets\Scripts\Trigger.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\UnusedAssets\LevelGeneration.cs" />

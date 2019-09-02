@@ -9,7 +9,7 @@ public class AttackState : BaseState
     private float enemyFireRateCounter;
     private Quaternion desiredRotation;
 
-    public AttackState(EnemyAI enemyAI) : base(enemyAI.gameObject)
+    public AttackState(EnemyAI enemyAI) : base(enemyAI.gameObject, enemyAI)
     {
         _enemyAI = enemyAI;
         enemyFireRateCounter = _enemyAI.settings.FireRate;
@@ -20,12 +20,16 @@ public class AttackState : BaseState
         if (_enemyAI.Target == null)
             return typeof(WanderState);
 
-        Vector2 target2D = new Vector2(_enemyAI.Target.position.x, _enemyAI.Target.position.y);
-        Vector2 transform2D = new Vector2(transform.position.x, transform.position.y);
-        Vector2 dir = target2D - transform2D;
-        float rotZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        desiredRotation = Quaternion.Euler(0f, 0f, rotZ);
+
+        // Flip sprite depending on which direction it's going.
+        CheckSpriteOrientation();
+
+        // Rotate towards the target.
+        desiredRotation = RotateEnemyTowards(_enemyAI.Target.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, _enemyAI.settings.TurnSpeed);
+
+        // Move towards the target.
+        rb2d.velocity = transform.right * _enemyAI.settings.MoveSpeed;
 
         if (enemyFireRateCounter <= 0f)
         {
@@ -33,7 +37,7 @@ public class AttackState : BaseState
             enemyFireRateCounter = _enemyAI.settings.FireRate;
         }
 
-        float distance = Vector2.Distance(transform2D, target2D);
+        float distance = Vector2.Distance(Transform2D(transform), Transform2D(_enemyAI.Target));
 
         if(distance > _enemyAI.settings.AttackDistance && distance <= _enemyAI.settings.AgroMaxDistance)
         {

@@ -15,7 +15,7 @@ public class StateMachine : MonoBehaviour {
         availableStates = states;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(CurrentState == null)
         {

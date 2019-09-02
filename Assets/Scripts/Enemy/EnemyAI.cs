@@ -4,10 +4,13 @@ using UnityEngine;
 using System;
 
 
-public class EnemyAI : MonoBehaviour {
+public class EnemyAI : MonoBehaviour{
 
 	public Transform Target { get; private set; }
     public EnemySettings settings;
+    public GameObject projectilePrefab;
+    public Dictionary<Type, BaseState> states;
+    public bool facingRight;
 
     public StateMachine StateMachine => GetComponent<StateMachine>();
 
@@ -15,12 +18,12 @@ public class EnemyAI : MonoBehaviour {
     {
         // Initialize the state machine
         InitializeStateMachine();
+        facingRight = true;
     }
 
     private void InitializeStateMachine()
     {
-        var states = new Dictionary<Type, BaseState>()
-        {
+        states = new Dictionary<Type, BaseState>(){
             { typeof(WanderState), new WanderState(this)},
             { typeof(ChaseState), new ChaseState(this)},
             { typeof(AttackState), new AttackState(this)}
@@ -35,6 +38,6 @@ public class EnemyAI : MonoBehaviour {
 
     public void FireProjectile()
     {
-        Instantiate(Resources.Load("Prefab/EnemyProjectile") as GameObject, transform.position, transform.rotation);
+        Instantiate(projectilePrefab as GameObject, transform.position, transform.rotation);
     }
 }

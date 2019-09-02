@@ -44,7 +44,7 @@ public class JetPack : MonoBehaviour {
         }
 
         // If character is grounded, then refuel the jetpack.
-        if (controller.IsGrounded())
+        if (controller.m_Grounded)
         {
             StartCoroutine(Refuel());
         }

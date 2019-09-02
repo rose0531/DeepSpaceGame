@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour {
+
     private Vector2 mousePosToWorld;                                // Converted mouse position from the screen to a position in the game world.
     private CharacterController controller;                         // Character controller from the player.
     [SerializeField] private GameObject shootPoint;                 // Point on the weapon to spawn projectile.
