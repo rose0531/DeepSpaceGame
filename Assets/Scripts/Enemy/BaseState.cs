@@ -8,9 +8,9 @@ public abstract class BaseState {
     protected Rigidbody2D rb2d;
     protected SpriteRenderer spriteRenderer;
     protected Vector2 vel = Vector2.zero;
-    protected EnemyAI enemyAI;
+    protected AI enemyAI;
 
-    public BaseState(GameObject gameObject, EnemyAI enemyAI)
+    public BaseState(GameObject gameObject, AI enemyAI)
     {
         this.enemyAI = enemyAI;
         this.gameObject = gameObject;

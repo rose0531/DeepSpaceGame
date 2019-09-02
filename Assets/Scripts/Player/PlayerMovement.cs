@@ -43,4 +43,10 @@ public class PlayerMovement : MonoBehaviour {
             controller.Jump();
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, 3f);
+    }
 }

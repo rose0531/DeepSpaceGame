@@ -16,10 +16,12 @@ public class RoomLists : MonoBehaviour {
     public GameObject closedRoomL;
 
     public List<GameObject> closedRoomsList;                    // List of rooms that spawn to close off the level.
+    public List<GameObject> allRoomsList;                       // List of every spawned room in the level;
 
     public float waitTime;                                      // Time to wait before spawning the next room.
     public bool closeAllRooms = false;                          // Flag to tell RoomSpawner to start closing the level.
     private bool spawnedTriggers = false;                       // Flag set when triggers are spawned.
+    private bool spawnedClosingRooms = false;
     private int rand = 0;                                       // Variable to hold random integer.
 
 
@@ -28,6 +30,14 @@ public class RoomLists : MonoBehaviour {
         if(waitTime <= 0)
         {
             closeAllRooms = true;
+
+            // Destroy room spawn points.
+            if (spawnedClosingRooms)
+            {
+                DestroyRoomSpawnPoints();
+            }
+
+            //Spawn Triggers and closing rooms.
             if(closedRoomsList.Count > 0 && !spawnedTriggers)
             {
                 rand = Random.Range(0, closedRoomsList.Count - 1);
@@ -39,6 +49,7 @@ public class RoomLists : MonoBehaviour {
                 closedRoomsList.RemoveRange(0, closedRoomsList.Count - 1);
 
                 spawnedTriggers = true;
+                spawnedClosingRooms = true;
             }
         }
         else
@@ -50,5 +61,17 @@ public class RoomLists : MonoBehaviour {
     public void SpawnObject(GameObject obj, Vector3 pos)
     {
         Instantiate(obj, pos, obj.transform.rotation);
+    }
+
+    public void DestroyRoomSpawnPoints()
+    {
+        foreach (GameObject room in allRoomsList)
+        {
+            Transform roomSpawnPoints = room?.transform.Find("RoomSpawnPoints");
+            if (roomSpawnPoints != null)
+            {
+                Destroy(roomSpawnPoints.gameObject);
+            }
+        }
     }
 }

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: RedStats
   m_EditorClassIdentifier: 
   Damage: 10
-  ProjectileSpeed: 50
+  ProjectileSpeed: 40
   ImpactEffect: {fileID: 198664243731584574, guid: a0f2796179e33354298279a1e86da10b,
     type: 2}

@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class AttackState : BaseState
 {
-    private EnemyAI _enemyAI;
+    private AI _enemyAI;
     private float enemyFireRateCounter;
     private Quaternion desiredRotation;
 
-    public AttackState(EnemyAI enemyAI) : base(enemyAI.gameObject, enemyAI)
+    public AttackState(AI enemyAI) : base(enemyAI.gameObject, enemyAI)
     {
         _enemyAI = enemyAI;
         enemyFireRateCounter = _enemyAI.settings.FireRate;
@@ -18,7 +18,7 @@ public class AttackState : BaseState
     public override Type Tick()
     {
         if (_enemyAI.Target == null)
-            return typeof(WanderState);
+            return _enemyAI.statesList[0];
 
 
         // Flip sprite depending on which direction it's going.
@@ -29,11 +29,11 @@ public class AttackState : BaseState
         transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, _enemyAI.settings.TurnSpeed);
 
         // Move towards the target.
-        rb2d.velocity = transform.right * _enemyAI.settings.MoveSpeed;
+        rb2d.velocity = transform.right * _enemyAI.settings.ChaseSpeed;
 
         if (enemyFireRateCounter <= 0f)
         {
-            _enemyAI.FireProjectile();
+            _enemyAI.Attack();
             enemyFireRateCounter = _enemyAI.settings.FireRate;
         }
 
@@ -41,10 +41,10 @@ public class AttackState : BaseState
 
         if(distance > _enemyAI.settings.AttackDistance && distance <= _enemyAI.settings.AgroMaxDistance)
         {
-            return typeof(ChaseState);
+            return _enemyAI.statesList[1];
         }else if(distance > _enemyAI.settings.AgroMaxDistance)
         {
-            return typeof(WanderState);
+            return _enemyAI.statesList[0];
         }
 
         enemyFireRateCounter -= Time.deltaTime;

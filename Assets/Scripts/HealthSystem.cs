@@ -21,8 +21,11 @@ public class HealthSystem : MonoBehaviour {
         currentHealth -= damage;
 
         damage = (int)UnityEngine.Random.Range(10f, 100f);
+
         // Spawn our popup damage text.
         popupText.SpawnPopupTextDamage(damage, 100, transform.position);
+
+        StartCoroutine(DamageFlash(0.1f));
 
         if(currentHealth < 0)
         {
@@ -49,5 +52,15 @@ public class HealthSystem : MonoBehaviour {
     public int GetHealth()
     {
         return currentHealth;
+    }
+
+    private IEnumerator DamageFlash(float timeBetweenFlash)
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        Color orignalColor = sr.color;
+        sr.color = new Color(1, 90f/255f, 90f/255f, 1);
+        yield return new WaitForSeconds(timeBetweenFlash);
+        sr.color = orignalColor;
+        yield return new WaitForSeconds(timeBetweenFlash);
     }
 }

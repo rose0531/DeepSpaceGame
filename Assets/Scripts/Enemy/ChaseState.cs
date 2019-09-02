@@ -5,20 +5,18 @@ using UnityEngine;
 
 public class ChaseState : BaseState {
 
-    private EnemyAI _enemyAI;
+    private AI _enemyAI;
     private Quaternion desiredRotation;
-    private float enemyFireRateCounter;
 
-    public ChaseState(EnemyAI enemyAI) : base(enemyAI.gameObject, enemyAI)
+    public ChaseState(AI enemyAI) : base(enemyAI.gameObject, enemyAI)
     {
         _enemyAI = enemyAI;
-        enemyFireRateCounter = _enemyAI.settings.FireRate;
     }
 
     public override Type Tick()
     {
         if (_enemyAI.Target == null)
-            return typeof(WanderState);
+            return _enemyAI.statesList[0];
 
         // Flip sprite depending on which direction it's going.
         CheckSpriteOrientation();
@@ -28,7 +26,7 @@ public class ChaseState : BaseState {
         transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, _enemyAI.settings.TurnSpeed);
 
         // Move towards the target.
-        rb2d.velocity = transform.right * _enemyAI.settings.MoveSpeed;
+        rb2d.velocity = transform.right * _enemyAI.settings.ChaseSpeed;
 
         float distance = Vector2.Distance(Transform2D(transform), Transform2D(_enemyAI.Target));
 
@@ -36,12 +34,12 @@ public class ChaseState : BaseState {
 
         if(distance > _enemyAI.settings.AgroMaxDistance)
         {
-            return typeof(WanderState);
+            return _enemyAI.statesList[0];
         }
 
         if (distance <= _enemyAI.settings.AttackDistance)
         {
-            return typeof(AttackState);
+            return _enemyAI.statesList[2];
         }
 
         return null;

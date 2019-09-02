@@ -18,9 +18,9 @@ public class EnemySettings : ScriptableObject {
 
     public int AgroRays = 24;                           // Number of rays to cast in front of the enemy in a fan shape to check for agro.
                                                         // A.K.A, field of view for the enemy.
-
     public float AgroDistance = 6f;                     // Raycast distance to check for agro.
     public float AgroMaxDistance = 11f;                 // Max agro distance the player has to escape for the enemy to stop agroing.
+    public float AgroAngle = 5f;                        // Angle amount that the raycast rotates.
 
     public float AttackDistance = 3f;                   // Range from which the enemy can attack.
 

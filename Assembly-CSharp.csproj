@@ -63,11 +63,14 @@
     <Compile Include="Assets\Material\ScrollUV.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CharacterController.cs" />
+    <Compile Include="Assets\Scripts\Enemy\AI.cs" />
     <Compile Include="Assets\Scripts\Enemy\AttackState.cs" />
     <Compile Include="Assets\Scripts\Enemy\BaseState.cs" />
     <Compile Include="Assets\Scripts\Enemy\ChaseState.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAI.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyAITeleporting.cs" />
     <Compile Include="Assets\Scripts\Enemy\StateMachine.cs" />
+    <Compile Include="Assets\Scripts\Enemy\TeleportingState.cs" />
     <Compile Include="Assets\Scripts\Enemy\WanderState.cs" />
     <Compile Include="Assets\Scripts\GameEvents\Events\BaseGameEvent.cs" />
     <Compile Include="Assets\Scripts\GameEvents\Events\CharacterStatsEvent.cs" />

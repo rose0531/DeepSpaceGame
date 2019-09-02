@@ -5,20 +5,22 @@ using UnityEngine;
 
 public class WanderState : BaseState
 {
-    private EnemyAI _enemyAI;
+    private AI _enemyAI;
 
     private float turnTimeCounter;
     private Quaternion desiredRotation;
     private Vector2 direction;
 
     private Quaternion agroStartingAngle = Quaternion.AngleAxis(-60, Vector3.forward);
-    private Quaternion agroStepAngle = Quaternion.AngleAxis(5, Vector3.forward);
+    private Quaternion agroStepAngle;
 
-    public WanderState(EnemyAI enemyAI) : base(enemyAI.gameObject, enemyAI)
+    public WanderState(AI enemyAI) : base(enemyAI.gameObject, enemyAI)
     {
         _enemyAI = enemyAI;
         turnTimeCounter = _enemyAI.settings.GetRandomTurnTimer();
+        agroStepAngle = Quaternion.AngleAxis(_enemyAI.settings.AgroAngle, Vector3.forward);
     }
+
 
     public override Type Tick()
     {
@@ -30,7 +32,8 @@ public class WanderState : BaseState
             _enemyAI.SetTarget(chaseTarget);
 
             // Switch enemies state to ChaseState.
-            return typeof(ChaseState);
+            Debug.Log("states: " + _enemyAI.statesList.Count);
+            return _enemyAI.statesList[1];
         }
 
         // Flip sprite depending on which direction it's going.
@@ -57,6 +60,8 @@ public class WanderState : BaseState
 
         return null;
     }
+
+
 
 
     private void FindRandomDestination()
@@ -91,22 +96,33 @@ public class WanderState : BaseState
                                  _enemyAI.settings.WhatIsGround);               // LayerMask to check for.
     }
 
+    
     private Transform CheckForAgro()
     {
         Quaternion angle = transform.rotation * agroStartingAngle;
         Vector2 dir = angle * Vector2.right;
-        RaycastHit2D hit;
+        RaycastHit2D[] hit;
 
         for (int i = 0; i < _enemyAI.settings.AgroRays; i++)
         {
-            hit = Physics2D.Raycast(transform.position, dir, _enemyAI.settings.AgroDistance, _enemyAI.settings.WhatIsPlayer);
-            Debug.DrawRay(transform.position, dir * _enemyAI.settings.AgroDistance, Color.red);
-            if (hit)
+            hit = Physics2D.RaycastAll(transform.position, dir, _enemyAI.settings.AgroDistance);//, _enemyAI.settings.WhatIsPlayer);
+
+            if (hit.Length > 1 && hit[1].collider != null)
             {
-                PlayerMovement player = hit.collider.GetComponent<PlayerMovement>();
-                if(player != null)
-                    return player.transform;
+                float dist = Vector2.Distance(transform.position, hit[1].point);
+                Debug.DrawRay(transform.position, dir * dist, Color.red);
+                if (hit[1].collider.GetComponent<PlayerMovement>())
+                {
+                    PlayerMovement player = hit[1].collider.GetComponent<PlayerMovement>();
+                    if (player != null)
+                        return player.transform;
+                }
             }
+            else
+            {
+                Debug.DrawRay(transform.position, dir * _enemyAI.settings.AgroDistance, Color.green);
+            }
+            
             dir = agroStepAngle * dir;
         }
 

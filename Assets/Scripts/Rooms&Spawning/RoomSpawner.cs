@@ -11,6 +11,7 @@ public class RoomSpawner : MonoBehaviour {
     private int rand;
     private bool spawned = false;
     private float roomSpawnTime = 0.2f;
+    private GameObject room;
 
     private void Start()
     {
@@ -28,12 +29,12 @@ public class RoomSpawner : MonoBehaviour {
                 if (rooms.closeAllRooms == false)
                 {
                     rand = Random.Range(0, rooms.topRooms.Length);
-                    Instantiate(rooms.topRooms[rand], transform.position, rooms.topRooms[rand].transform.rotation);
+                    room = Instantiate(rooms.topRooms[rand], transform.position, rooms.topRooms[rand].transform.rotation);
                 }
                 else
                 {
                     // Spawn a closed room. (AKA - A room with one openning)
-                    GameObject room = Instantiate(rooms.closedRoomT, transform.position, rooms.closedRoomT.transform.rotation);
+                    room = Instantiate(rooms.closedRoomT, transform.position, rooms.closedRoomT.transform.rotation);
 
                     // Add the room to our closed room list.
                     rooms.closedRoomsList.Add(room);
@@ -45,11 +46,11 @@ public class RoomSpawner : MonoBehaviour {
                 if (rooms.closeAllRooms == false)
                 {
                     rand = Random.Range(0, rooms.rightRooms.Length);
-                    Instantiate(rooms.rightRooms[rand], transform.position, rooms.rightRooms[rand].transform.rotation);
+                    room = Instantiate(rooms.rightRooms[rand], transform.position, rooms.rightRooms[rand].transform.rotation);
                 }
                 else
                 {
-                    GameObject room = Instantiate(rooms.closedRoomR, transform.position, rooms.closedRoomR.transform.rotation);
+                    room = Instantiate(rooms.closedRoomR, transform.position, rooms.closedRoomR.transform.rotation);
                     rooms.closedRoomsList.Add(room);
                 }
             }
@@ -59,11 +60,11 @@ public class RoomSpawner : MonoBehaviour {
                 if (rooms.closeAllRooms == false)
                 {
                     rand = Random.Range(0, rooms.bottomRooms.Length);
-                    Instantiate(rooms.bottomRooms[rand], transform.position, rooms.bottomRooms[rand].transform.rotation);
+                    room = Instantiate(rooms.bottomRooms[rand], transform.position, rooms.bottomRooms[rand].transform.rotation);
                 }
                 else
                 {
-                    GameObject room = Instantiate(rooms.closedRoomB, transform.position, rooms.closedRoomB.transform.rotation);
+                    room = Instantiate(rooms.closedRoomB, transform.position, rooms.closedRoomB.transform.rotation);
                     rooms.closedRoomsList.Add(room);
                 }
             }
@@ -73,14 +74,15 @@ public class RoomSpawner : MonoBehaviour {
                 if (rooms.closeAllRooms == false)
                 {
                     rand = Random.Range(0, rooms.leftRooms.Length);
-                    Instantiate(rooms.leftRooms[rand], transform.position, rooms.leftRooms[rand].transform.rotation);
+                    room = Instantiate(rooms.leftRooms[rand], transform.position, rooms.leftRooms[rand].transform.rotation);
                 }
                 else
                 {
-                    GameObject room = Instantiate(rooms.closedRoomL, transform.position, rooms.closedRoomL.transform.rotation);
+                    room = Instantiate(rooms.closedRoomL, transform.position, rooms.closedRoomL.transform.rotation);
                     rooms.closedRoomsList.Add(room);
                 }
             }
+            rooms.allRoomsList.Add(room);
         }
         spawned = true;
 	}
@@ -89,7 +91,6 @@ public class RoomSpawner : MonoBehaviour {
     {
         if(other.CompareTag("SpawnPoint"))
         {
-            // TODO: figure out why rooms shift sometimes
             if(other.GetComponent<RoomSpawner>() && other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
             {
                 // Spawn wall to close any opennings
